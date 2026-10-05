@@ -65,14 +65,13 @@ export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmi
 
   const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
 
-  // If no endpoint is configured in environment, gracefully simulate submission in dev/preview
+  // If no endpoint is configured in environment, do not fake successful submission
   if (!endpoint || !endpoint.trim()) {
-    // Simulated network delay
-    await new Promise((resolve) => setTimeout(resolve, 600));
-
     return {
-      success: true,
-      message: 'Thank you! Your enquiry has been recorded. Our team will contact you shortly.',
+      success: false,
+      message:
+        'Online enquiry submission is currently being configured. Please contact our Shamshabad office directly by phone.',
+      error: 'NEXT_PUBLIC_FORM_ENDPOINT is not configured',
     };
   }
 
