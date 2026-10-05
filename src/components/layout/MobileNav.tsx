@@ -130,7 +130,7 @@ export function MobileNav() {
                   <Link
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="flex min-h-[48px] w-full items-center justify-center rounded-md border border-brand-gold-600/30 bg-brand-gold-500 px-4 py-3 text-center font-semibold text-brand-purple-950 shadow-sm hover:bg-brand-gold-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
+                    className="flex min-h-[48px] w-full items-center justify-center rounded-md border border-brand-purple-950/20 bg-brand-purple-900 px-4 py-3 text-center font-semibold text-white shadow-sm hover:bg-brand-purple-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700 active:bg-brand-purple-950"
                   >
                     {item.label}
                   </Link>

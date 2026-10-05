@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 
 export interface SectionHeadingProps extends React.HTMLAttributes<HTMLDivElement> {
   badge?: string;
+  badgeVariant?: 'purple' | 'gold';
   title: string;
   description?: string;
   align?: 'left' | 'center';
@@ -12,6 +13,7 @@ export interface SectionHeadingProps extends React.HTMLAttributes<HTMLDivElement
 
 export function SectionHeading({
   badge,
+  badgeVariant = 'purple',
   title,
   description,
   align = 'left',
@@ -22,6 +24,12 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const isCentered = align === 'center';
 
+  const badgeStyles = invert
+    ? 'border-brand-gold-500/30 bg-brand-gold-500/10 text-brand-gold-300'
+    : badgeVariant === 'gold'
+      ? 'border-brand-gold-400/60 bg-brand-gold-50 text-brand-gold-900'
+      : 'border-brand-purple-200/80 bg-brand-purple-50 text-brand-purple-900';
+
   return (
     <div
       className={cn('space-y-3', isCentered && 'mx-auto max-w-2xl text-center', className)}
@@ -31,9 +39,7 @@ export function SectionHeading({
         <span
           className={cn(
             'inline-block rounded border px-3 py-1 text-xs font-semibold uppercase tracking-wider',
-            invert
-              ? 'border-brand-gold-500/30 bg-brand-gold-500/10 text-brand-gold-300'
-              : 'border-brand-purple-200/60 bg-brand-purple-50 text-brand-purple-800',
+            badgeStyles,
           )}
         >
           {badge}

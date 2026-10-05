@@ -19,6 +19,7 @@ export default function HomePage() {
           <SectionHeading
             as="h1"
             badge="Phase 1 Foundation"
+            badgeVariant="gold"
             title={siteConfig.name}
             description="A fast, professional, mobile-first website foundation for Shri Vijaya Ganapathi Chit Fund Pvt Ltd. Reusable layout shell and core architecture are active."
           />

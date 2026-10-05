@@ -41,12 +41,12 @@ export function Logo({ className = '', variant = 'dark' }: LogoProps) {
       aria-label={`${siteConfig.name} - Home`}
     >
       {logoFileName ? (
-        <div className="relative h-10 w-auto flex-shrink-0">
+        <div className="relative h-10 w-10 flex-shrink-0 sm:h-11 sm:w-11">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`/logo/${logoFileName}`}
             alt={siteConfig.name}
-            className="h-10 w-auto object-contain"
+            className="h-full w-full rounded-full object-contain shadow-sm"
           />
         </div>
       ) : null}

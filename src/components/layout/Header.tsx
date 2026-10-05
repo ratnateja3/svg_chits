@@ -49,7 +49,7 @@ export function Header() {
             {prominentAction && (
               <Link
                 href={prominentAction.href}
-                className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-brand-gold-600/30 bg-brand-gold-500 px-4 py-2 text-sm font-semibold text-brand-purple-950 shadow-sm transition-colors hover:bg-brand-gold-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-brand-purple-950/20 bg-brand-purple-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-purple-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700 active:bg-brand-purple-950"
               >
                 {prominentAction.label}
               </Link>

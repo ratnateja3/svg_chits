@@ -67,10 +67,10 @@ export function StickyContactBar() {
 
         <Link
           href="/contact"
-          className="flex min-h-[44px] items-center justify-center gap-1.5 rounded-md border border-brand-gold-600/30 bg-brand-gold-500 px-4 py-2.5 text-center text-sm font-semibold text-brand-purple-950 shadow-sm hover:bg-brand-gold-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700 active:bg-brand-gold-700"
+          className="flex min-h-[44px] items-center justify-center gap-1.5 rounded-md border border-brand-purple-950/20 bg-brand-purple-900 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-brand-purple-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700 active:bg-brand-purple-950"
         >
           <svg
-            className="h-4 w-4 text-brand-purple-950"
+            className="h-4 w-4 text-white"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth="2"

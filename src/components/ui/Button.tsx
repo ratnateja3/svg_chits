@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'quiet';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'quiet' | 'gold';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   children: React.ReactNode;
@@ -29,15 +29,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants: Record<string, string> = {
       primary:
-        'bg-brand-gold-500 hover:bg-brand-gold-600 text-brand-purple-950 font-semibold border border-brand-gold-600/30 shadow-sm active:bg-brand-gold-700',
+        'bg-brand-purple-900 hover:bg-brand-purple-800 text-white font-semibold border border-brand-purple-950/20 shadow-sm active:bg-brand-purple-950',
       secondary:
-        'bg-brand-purple-900 hover:bg-brand-purple-800 text-white border border-transparent active:bg-brand-purple-950',
+        'bg-brand-purple-50 hover:bg-brand-purple-100 text-brand-purple-900 font-semibold border border-brand-purple-200 active:bg-brand-purple-200',
       outline:
-        'border border-brand-purple-900 text-brand-purple-900 hover:bg-brand-purple-50 active:bg-brand-purple-100',
+        'border border-brand-purple-900 text-brand-purple-900 hover:bg-brand-purple-50 active:bg-brand-purple-100 font-semibold',
       ghost:
         'text-neutral-700 hover:text-brand-purple-900 hover:bg-brand-purple-50/80 active:bg-brand-purple-100',
       quiet:
         'text-neutral-600 hover:text-brand-purple-900 bg-neutral-100/80 hover:bg-neutral-200/80 border border-neutral-300 text-xs font-normal tracking-wide',
+      gold: 'bg-brand-gold-500 hover:bg-brand-gold-600 text-brand-purple-950 font-semibold border border-brand-gold-600/30 shadow-sm active:bg-brand-gold-700',
     };
 
     const sizes: Record<string, string> = {
