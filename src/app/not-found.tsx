@@ -1,44 +1,48 @@
 import React from 'react';
-import Link from 'next/link';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Button } from '@/components/ui/Button';
-import { siteConfig } from '@/content/site';
 
 export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <header className="border-b border-neutral-200 py-4">
-        <Container>
-          <Link
-            href="/"
-            className="rounded font-serif text-lg font-bold text-brand-purple-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
-          >
-            {siteConfig.name}
-          </Link>
-        </Container>
-      </header>
+      <Header />
 
       <main className="flex flex-1 items-center justify-center">
         <Section spacing="lg">
           <Container size="narrow">
-            <div className="space-y-6 text-center">
-              <span className="inline-block rounded border border-brand-purple-200/60 bg-brand-purple-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-purple-800">
-                404 Error
+            <div className="mx-auto max-w-xl text-center">
+              <span className="inline-block rounded-full border border-brand-gold-300 bg-brand-gold-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-gold-900">
+                404 &bull; Resource Not Found
               </span>
-              <SectionHeading
-                as="h1"
-                align="center"
-                title="Page Not Found"
-                description="The page you are looking for does not exist or may have been relocated."
-              />
-              <div className="flex justify-center gap-4 pt-4">
-                <Button href="/" variant="primary">
-                  Return to Home
+
+              <div className="mt-4">
+                <SectionHeading
+                  as="h1"
+                  align="center"
+                  title="Page Not Found"
+                  description="The page you requested could not be located. It may have been moved, renamed, or is temporarily unavailable."
+                />
+              </div>
+
+              <p className="mt-4 text-sm text-neutral-600">
+                Please check the web address or use the shortcuts below to continue navigating our
+                chit plans and company information.
+              </p>
+
+              {/* 3 Required Action Buttons */}
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+                <Button href="/" variant="primary" className="w-full sm:w-auto">
+                  Home
                 </Button>
-                <Button href="/contact" variant="outline">
-                  Contact Office
+                <Button href="/chit-groups" variant="secondary" className="w-full sm:w-auto">
+                  Chit Groups
+                </Button>
+                <Button href="/contact" variant="outline" className="w-full sm:w-auto">
+                  Contact
                 </Button>
               </div>
             </div>
@@ -46,11 +50,7 @@ export default function NotFound() {
         </Section>
       </main>
 
-      <footer className="border-t border-neutral-200 py-6 text-center text-xs text-neutral-500">
-        <Container>
-          &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-        </Container>
-      </footer>
+      <Footer />
     </div>
   );
 }
