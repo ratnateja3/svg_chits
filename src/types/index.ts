@@ -48,3 +48,42 @@ export interface NavItem {
   href: string;
   variant?: 'default' | 'quiet' | 'prominent';
 }
+
+export type ChitPlanStatus = 'open' | 'filling' | 'full' | 'upcoming';
+
+export interface ChitPlan {
+  id: string;
+  name: string;
+  chitValue: number;
+  monthlyInstalment: number;
+  durationMonths: number;
+  members: number;
+  location: string;
+  status: ChitPlanStatus;
+  notes?: string;
+  isPlaceholder: boolean;
+}
+
+export interface EnquiryFormData {
+  name: string;
+  phone: string;
+  chitPlanId?: string;
+  chitPlanName?: string;
+  message?: string;
+  consent: boolean;
+  honeypot?: string;
+  // Attribution & campaign tracking
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmTerm?: string;
+  utmContent?: string;
+  gclid?: string;
+  fbclid?: string;
+}
+
+export interface EnquirySubmissionResult {
+  success: boolean;
+  message: string;
+  error?: string;
+}

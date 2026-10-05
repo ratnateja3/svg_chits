@@ -3,9 +3,12 @@ import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
 import { siteConfig } from '@/content/site';
 import { footerQuickLinks, legalLinks } from '@/content/navigation';
+import { getTelLink, getEmailLink } from '@/lib/contact';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const telLink = getTelLink();
+  const emailLink = getEmailLink();
 
   return (
     <footer className="border-t border-brand-purple-900 bg-brand-purple-950 text-neutral-300">
@@ -95,24 +98,24 @@ export function Footer() {
               </p>
             </address>
 
-            {/* Display contact details only if available */}
-            {siteConfig.contact.email && (
+            {/* Display contact details safely if configured */}
+            {emailLink && siteConfig.contact.email && (
               <p className="pt-2 text-xs text-neutral-400">
                 Email:{' '}
                 <a
-                  href={`mailto:${siteConfig.contact.email}`}
-                  className="text-brand-gold-300 hover:underline"
+                  href={emailLink}
+                  className="text-brand-gold-300 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-gold-400"
                 >
                   {siteConfig.contact.email}
                 </a>
               </p>
             )}
-            {siteConfig.contact.phone && (
+            {telLink && (
               <p className="text-xs text-neutral-400">
                 Phone:{' '}
                 <a
-                  href={`tel:${siteConfig.contact.phone}`}
-                  className="text-brand-gold-300 hover:underline"
+                  href={telLink}
+                  className="text-brand-gold-300 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-gold-400"
                 >
                   {siteConfig.contact.phoneDisplay || siteConfig.contact.phone}
                 </a>
