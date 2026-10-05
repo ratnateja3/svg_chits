@@ -342,7 +342,7 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
               placeholder="e.g. S. Ramesh Kumar"
               aria-invalid={Boolean(errors.name)}
               aria-describedby={errors.name ? 'enquiry-name-error' : undefined}
-              className={`min-h-[44px] w-full rounded-md border px-3.5 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-purple-700 sm:text-sm ${
+              className={`min-h-[44px] w-full rounded-md border px-3.5 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-purple-700 ${
                 errors.name
                   ? 'border-red-500 bg-red-50/30'
                   : 'border-neutral-300 focus:border-brand-purple-700'
@@ -379,7 +379,7 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
                 placeholder="98765 43210"
                 aria-invalid={Boolean(errors.phone)}
                 aria-describedby={errors.phone ? 'enquiry-phone-error' : undefined}
-                className={`min-h-[44px] w-full rounded-md border py-3 pl-12 pr-3.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-purple-700 sm:text-sm ${
+                className={`min-h-[44px] w-full rounded-md border py-3 pl-12 pr-3.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-purple-700 ${
                   errors.phone
                     ? 'border-red-500 bg-red-50/30'
                     : 'border-neutral-300 focus:border-brand-purple-700'
@@ -407,7 +407,7 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
               name="chitPlanName"
               value={formData.chitPlanName}
               onChange={handleChange}
-              className="min-h-[44px] w-full rounded-md border border-neutral-300 bg-white px-3.5 py-3 text-base text-neutral-900 focus:border-brand-purple-700 focus:outline-none focus:ring-2 focus:ring-brand-purple-700 sm:text-sm"
+              className="min-h-[44px] w-full rounded-md border border-neutral-300 bg-white px-3.5 py-3 text-base text-neutral-900 focus:border-brand-purple-700 focus:outline-none focus:ring-2 focus:ring-brand-purple-700"
             >
               <option value="">General Chit Inquiry / Suggest a Scheme</option>
               {chitPlans.map((plan) => (
@@ -434,7 +434,7 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
               value={formData.message}
               onChange={handleChange}
               placeholder="Tell us about your savings goals or questions..."
-              className="w-full rounded-md border border-neutral-300 px-3.5 py-2.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-purple-700 focus:outline-none focus:ring-2 focus:ring-brand-purple-700 sm:text-sm"
+              className="min-h-[88px] w-full rounded-md border border-neutral-300 px-3.5 py-2.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-purple-700 focus:outline-none focus:ring-2 focus:ring-brand-purple-700"
             />
           </div>
 
