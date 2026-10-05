@@ -1,51 +1,46 @@
 import type { Metadata } from 'next';
-import { Container } from '@/components/ui/Container';
-import { Section } from '@/components/ui/Section';
-import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
+import { HeroSection } from '@/components/home/HeroSection';
+import { IntroSection } from '@/components/home/IntroSection';
+import { ChitPreviewSection } from '@/components/home/ChitPreviewSection';
+import { HowItWorksSection } from '@/components/home/HowItWorksSection';
+import { WhyChooseUsSection } from '@/components/home/WhyChooseUsSection';
+import { BenefitsSection } from '@/components/home/BenefitsSection';
+import { EnquiryCtaSection } from '@/components/home/EnquiryCtaSection';
+import { SocialSection } from '@/components/home/SocialSection';
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} - Home`,
-  description: siteConfig.tagline,
+  title: `${siteConfig.name} | Trusted Govt. Registered Chit Fund`,
+  description:
+    'Shri Vijaya Ganapathi Chit Fund Pvt Ltd in Shamshabad, Hyderabad provides disciplined monthly savings schemes and accessible capital under the Chit Funds Act, 1982.',
 };
 
 export default function HomePage() {
   return (
-    <Section spacing="lg">
-      <Container>
-        <div className="mx-auto max-w-3xl space-y-8 text-center sm:text-left">
-          <SectionHeading
-            as="h1"
-            badge="Phase 1 Foundation"
-            badgeVariant="gold"
-            title={siteConfig.name}
-            description="A fast, professional, mobile-first website foundation for Shri Vijaya Ganapathi Chit Fund Pvt Ltd. Reusable layout shell and core architecture are active."
-          />
+    <>
+      {/* 1. Hero */}
+      <HeroSection />
 
-          <Card padding="lg" className="space-y-4">
-            <h2 className="font-serif text-lg font-bold text-brand-purple-900">
-              Registered Office
-            </h2>
-            <address className="text-sm not-italic leading-relaxed text-neutral-600">
-              {siteConfig.address.fullAddress}
-            </address>
+      {/* 2. Company Introduction */}
+      <IntroSection />
 
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button href="/chit-groups" variant="primary">
-                Explore Chit Groups
-              </Button>
-              <Button href="/contact" variant="outline">
-                Contact Office
-              </Button>
-              <Button href="/pay-now" variant="quiet">
-                Pay Online
-              </Button>
-            </div>
-          </Card>
-        </div>
-      </Container>
-    </Section>
+      {/* 3. Chit Groups Preview */}
+      <ChitPreviewSection />
+
+      {/* 4. How Chit Funds Work */}
+      <HowItWorksSection />
+
+      {/* 5. Why Choose Us */}
+      <WhyChooseUsSection />
+
+      {/* 6. Benefits / Use Cases */}
+      <BenefitsSection />
+
+      {/* 7. Enquiry CTA */}
+      <EnquiryCtaSection />
+
+      {/* 8. Social Media Section */}
+      <SocialSection />
+    </>
   );
 }

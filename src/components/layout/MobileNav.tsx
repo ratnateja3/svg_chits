@@ -44,7 +44,7 @@ export function MobileNav() {
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-menu"
         aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
-        className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2.5 text-neutral-700 hover:bg-neutral-100 hover:text-brand-purple-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
+        className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2.5 text-neutral-200 hover:bg-brand-purple-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-400"
       >
         <span className="sr-only">{isOpen ? 'Close menu' : 'Open menu'}</span>
         {isOpen ? (
@@ -95,15 +95,16 @@ export function MobileNav() {
         aria-modal="true"
         aria-label="Navigation Menu"
       >
-        <div className="flex items-center justify-between border-b border-neutral-200 p-4">
-          <span className="font-serif text-lg font-bold text-brand-purple-900">
+        {/* Drawer Branded Deep Purple Header */}
+        <div className="flex items-center justify-between border-b border-brand-purple-900 bg-brand-purple-950 p-4">
+          <span className="font-serif text-lg font-bold text-white">
             {siteConfig.shortName}
           </span>
           <button
             type="button"
             onClick={() => setIsOpen(false)}
             aria-label="Close navigation menu"
-            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-neutral-300 hover:bg-brand-purple-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-400"
           >
             <svg
               className="h-6 w-6"
@@ -159,7 +160,7 @@ export function MobileNav() {
                 onClick={() => setIsOpen(false)}
                 className={`flex min-h-[48px] items-center rounded-md px-4 py-3 text-base font-medium transition-colors ${
                   isActive
-                    ? 'bg-brand-purple-50 font-semibold text-brand-purple-900'
+                    ? 'border-l-4 border-brand-gold-500 bg-brand-purple-50 font-semibold text-brand-purple-950'
                     : 'text-neutral-700 hover:bg-neutral-50 hover:text-brand-purple-900'
                 }`}
                 aria-current={isActive ? 'page' : undefined}

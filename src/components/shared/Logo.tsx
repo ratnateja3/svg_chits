@@ -1,8 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import fs from 'fs';
-import path from 'path';
 import { siteConfig } from '@/content/site';
 
 interface LogoProps {
@@ -12,44 +9,31 @@ interface LogoProps {
 
 /**
  * Brand Logo component.
- * Uses the actual supplied logo asset from public/logo/ if present.
+ * Uses the actual supplied logo asset from public/logo/logo.png.
  * Does NOT recreate or fake the logo using icons, AI graphics, or CSS shapes.
  */
 export function Logo({ className = '', variant = 'dark' }: LogoProps) {
-  // Check for supplied logo asset in public/logo directory
-  let logoFileName: string | null = null;
-
-  try {
-    const logoDir = path.join(process.cwd(), 'public', 'logo');
-    if (fs.existsSync(logoDir)) {
-      const files = fs.readdirSync(logoDir);
-      const imageFiles = files.filter((f) => /\.(svg|png|jpg|jpeg|webp)$/i.test(f));
-      if (imageFiles.length > 0) {
-        logoFileName = imageFiles[0];
-      }
-    }
-  } catch {
-    logoFileName = null;
-  }
-
   const isLight = variant === 'light';
+  const logoSrc = '/logo/logo.png';
 
   return (
     <Link
       href="/"
-      className={`inline-flex items-center gap-3 rounded transition-opacity hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700 focus-visible:ring-offset-2 ${className}`}
+      className={`inline-flex items-center gap-3 rounded transition-opacity hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 ${
+        isLight
+          ? 'focus-visible:ring-brand-gold-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-purple-950'
+          : 'focus-visible:ring-brand-purple-700 focus-visible:ring-offset-2'
+      } ${className}`}
       aria-label={`${siteConfig.name} - Home`}
     >
-      {logoFileName ? (
-        <div className="relative h-10 w-10 flex-shrink-0 sm:h-11 sm:w-11">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`/logo/${logoFileName}`}
-            alt={siteConfig.name}
-            className="h-full w-full rounded-full object-contain shadow-sm"
-          />
-        </div>
-      ) : null}
+      <div className="relative h-10 w-10 flex-shrink-0 sm:h-11 sm:w-11">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logoSrc}
+          alt={siteConfig.name}
+          className="h-full w-full rounded-full object-contain shadow-sm"
+        />
+      </div>
 
       <div className="flex flex-col">
         <span
