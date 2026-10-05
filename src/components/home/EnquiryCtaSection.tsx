@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
@@ -5,6 +7,7 @@ import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
 import { getTelLink, getWhatsAppLink } from '@/lib/contact';
+import { trackCallClick, trackWhatsAppClick, trackEnquireClick } from '@/lib/analytics';
 
 export function EnquiryCtaSection() {
   const telLink = getTelLink();
@@ -29,7 +32,13 @@ export function EnquiryCtaSection() {
 
           {/* Action CTAs */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <Button href="/contact" variant="primary" size="lg" className="min-w-[160px]">
+            <Button
+              href="/contact"
+              variant="primary"
+              size="lg"
+              className="min-w-[160px]"
+              onClick={() => trackEnquireClick('enquiry_cta_section')}
+            >
               Enquire Now
             </Button>
 
@@ -42,6 +51,7 @@ export function EnquiryCtaSection() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick(siteConfig.contact.whatsapp!, 'enquiry_cta_section')}
                 className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border border-emerald-300 bg-emerald-100 px-5 py-3 text-base font-semibold text-emerald-950 transition-colors hover:bg-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700"
               >
                 <span>Chat on WhatsApp</span>
@@ -51,6 +61,7 @@ export function EnquiryCtaSection() {
             {telLink && (
               <a
                 href={telLink}
+                onClick={() => trackCallClick(siteConfig.contact.phone!, 'enquiry_cta_section')}
                 className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border border-neutral-300 bg-white px-5 py-3 text-base font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
               >
                 <span>Call Our Office</span>

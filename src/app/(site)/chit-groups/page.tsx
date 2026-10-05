@@ -6,12 +6,14 @@ import { Button } from '@/components/ui/Button';
 import { chitPlans } from '@/content/chit-plans';
 import { ChitPlanGrid } from '@/components/shared/ChitPlanGrid';
 import { siteConfig } from '@/content/site';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `Chit Groups & Plans | ${siteConfig.name}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: `Chit Groups & Subscription Schemes | ${siteConfig.name}`,
   description:
-    'Explore registered chit schemes and monthly subscription groups offered by Shri Vijaya Ganapathi Chit Fund Pvt Ltd in Shamshabad, Hyderabad.',
-};
+    'Explore registered chit schemes and monthly subscription groups offered by Shri Vijaya Ganapathi Chit Fund Pvt Ltd in Shamshabad, Hyderabad under statutory regulations.',
+  path: '/chit-groups',
+});
 
 export default function ChitGroupsPage() {
   return (

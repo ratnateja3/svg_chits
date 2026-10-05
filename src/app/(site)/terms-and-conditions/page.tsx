@@ -6,11 +6,13 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `Terms & Conditions (Draft) | ${siteConfig.name}`,
-  description: `Draft terms and conditions and regulatory framework overview for ${siteConfig.name} under the Chit Funds Act, 1982.`,
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: `Terms & Conditions (Draft Overview) | ${siteConfig.name}`,
+  description: `Draft terms and conditions and regulatory framework overview for ${siteConfig.name} under the Chit Funds Act, 1982 in Telangana.`,
+  path: '/terms-and-conditions',
+});
 
 export default function TermsAndConditionsPage() {
   return (

@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import Link from 'next/link';
 import type { ChitPlan, ChitPlanStatus } from '@/types';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -13,20 +14,20 @@ export interface ChitPlanCardProps {
 
 const statusBadges: Record<ChitPlanStatus, { label: string; className: string }> = {
   open: {
-    label: 'Open for Enrollment',
-    className: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    label: 'New Group • Open for Enquiries',
+    className: 'bg-emerald-50 text-emerald-800 border-emerald-300 font-semibold',
   },
   filling: {
     label: 'Filling Fast',
-    className: 'bg-brand-gold-50 text-brand-gold-900 border-brand-gold-300',
+    className: 'bg-brand-gold-50 text-brand-gold-900 border-brand-gold-300 font-semibold',
   },
   upcoming: {
     label: 'Upcoming Group',
-    className: 'bg-brand-purple-50 text-brand-purple-800 border-brand-purple-200',
+    className: 'bg-brand-purple-50 text-brand-purple-800 border-brand-purple-200 font-semibold',
   },
   full: {
-    label: 'Group Full',
-    className: 'bg-neutral-100 text-neutral-600 border-neutral-200',
+    label: 'Running Group • Currently Full',
+    className: 'bg-neutral-100 text-neutral-700 border-neutral-300 font-medium',
   },
 };
 
@@ -44,7 +45,7 @@ export function ChitPlanCard({ plan, onEnquire, className }: ChitPlanCardProps) 
         {/* Status Badge */}
         <div className="mb-4 flex items-center justify-between gap-2">
           <span
-            className={`inline-flex items-center rounded border px-2.5 py-1 text-xs font-semibold ${badge.className}`}
+            className={`inline-flex items-center rounded border px-2.5 py-1 text-xs ${badge.className}`}
           >
             {badge.label}
           </span>
@@ -67,7 +68,9 @@ export function ChitPlanCard({ plan, onEnquire, className }: ChitPlanCardProps) 
           <div className="flex items-center justify-between text-neutral-600">
             <span className="text-neutral-500">Monthly Contribution:</span>
             <span className="font-semibold text-neutral-900">
-              {formatIndianCurrency(plan.monthlyInstalment)}
+              {plan.monthlyInstalment !== null && plan.monthlyInstalment !== undefined
+                ? formatIndianCurrency(plan.monthlyInstalment)
+                : 'Available on enquiry'}
             </span>
           </div>
 
@@ -87,7 +90,7 @@ export function ChitPlanCard({ plan, onEnquire, className }: ChitPlanCardProps) 
           </div>
         </div>
 
-        {/* Sample / Placeholder Plan Notice */}
+        {/* Sample / Placeholder Plan Notice (only rendered if isPlaceholder is true) */}
         {plan.isPlaceholder && (
           <div className="mt-4 rounded border border-brand-gold-200/80 bg-brand-gold-50/70 p-2.5 text-[11px] font-medium leading-snug text-brand-gold-900">
             {plan.notes || 'Sample – details to be confirmed'}
@@ -104,7 +107,7 @@ export function ChitPlanCard({ plan, onEnquire, className }: ChitPlanCardProps) 
             fullWidth
             onClick={() => onEnquire(plan)}
           >
-            {isFull ? 'Enquire for Next Group' : 'Enquire for This Scheme'}
+            {isFull ? 'Ask About Future Availability' : 'Enquire for This Group'}
           </Button>
         ) : (
           <Button
@@ -112,7 +115,7 @@ export function ChitPlanCard({ plan, onEnquire, className }: ChitPlanCardProps) 
             variant={isFull ? 'outline' : 'primary'}
             fullWidth
           >
-            {isFull ? 'Enquire for Next Group' : 'Enquire for This Scheme'}
+            {isFull ? 'Ask About Future Availability' : 'Enquire for This Group'}
           </Button>
         )}
       </div>

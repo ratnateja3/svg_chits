@@ -55,7 +55,7 @@ export interface ChitPlan {
   id: string;
   name: string;
   chitValue: number;
-  monthlyInstalment: number;
+  monthlyInstalment: number | null;
   durationMonths: number;
   members: number;
   location: string;

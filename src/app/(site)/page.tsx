@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { siteConfig } from '@/content/site';
+import { buildPageMetadata } from '@/lib/seo';
 import { HeroSection } from '@/components/home/HeroSection';
 import { IntroSection } from '@/components/home/IntroSection';
 import { ChitPreviewSection } from '@/components/home/ChitPreviewSection';
@@ -9,11 +10,12 @@ import { BenefitsSection } from '@/components/home/BenefitsSection';
 import { EnquiryCtaSection } from '@/components/home/EnquiryCtaSection';
 import { SocialSection } from '@/components/home/SocialSection';
 
-export const metadata: Metadata = {
-  title: `${siteConfig.name} | Trusted Govt. Registered Chit Fund`,
+export const metadata: Metadata = buildPageMetadata({
+  title: `${siteConfig.name} | Registered Chit Fund Company in Hyderabad`,
   description:
-    'Shri Vijaya Ganapathi Chit Fund Pvt Ltd in Shamshabad, Hyderabad provides disciplined monthly savings schemes and accessible capital under the Chit Funds Act, 1982.',
-};
+    'Shri Vijaya Ganapathi Chit Fund Pvt Ltd in Shamshabad, Hyderabad provides disciplined monthly savings schemes and planned capital access under the Chit Funds Act, 1982.',
+  path: '/',
+});
 
 export default function HomePage() {
   return (

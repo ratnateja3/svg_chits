@@ -6,11 +6,13 @@ import { Card } from '@/components/ui/Card';
 import { siteConfig } from '@/content/site';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
 import { getTelLink, getWhatsAppLink, getEmailLink } from '@/lib/contact';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `Contact Us | ${siteConfig.name}`,
-  description: `Contact ${siteConfig.name} at our registered Shamshabad office or submit an online chit scheme enquiry.`,
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: `Contact Us | Registered Shamshabad Office | ${siteConfig.name}`,
+  description: `Contact ${siteConfig.name} at our registered Shamshabad office in Hyderabad or call +91 93928 24461 for chit scheme enrollment and auction schedules.`,
+  path: '/contact',
+});
 
 export default function ContactPage() {
   const telLink = getTelLink();

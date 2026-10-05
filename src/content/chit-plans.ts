@@ -2,98 +2,159 @@ import type { ChitPlan } from '../types';
 
 /**
  * Shri Vijaya Ganapathi Chit Fund Pvt Ltd
- * Chit Plan Schemes & Groups Configuration.
+ * Centralized Chit Groups Configuration.
  *
- * NOTE: Official company chit plans and government approval numbers are pending confirmation.
- * The plans below are clearly marked sample placeholders.
- * Official chit schemes will be updated once confirmed by the company management.
+ * Confirmed company chit groups: 9 total groups
+ * - 2 new groups: Open for enquiries
+ * - 7 older/running groups: Currently full (no available slots)
+ *
+ * NOTE: Unsupplied fields (such as specific monthly instalments, auction dates,
+ * or registration orders) are represented safely as null without fabrication.
  */
-export const SAMPLE_PLAN_NOTICE = 'Sample – details to be confirmed';
 
 export const chitPlans: ChitPlan[] = [
+  // ==========================================
+  // NEW / OPEN CHIT GROUPS (2 Groups)
+  // ==========================================
   {
-    id: 'sample-plan-100k',
-    name: 'Sample Scheme 1 Lakh (Mock)',
-    chitValue: 100000,
-    monthlyInstalment: 4000,
-    durationMonths: 25,
-    members: 25,
+    id: 'new-group-15l-30m',
+    name: 'New Group ₹15 Lakhs (30M)',
+    chitValue: 1500000,
+    monthlyInstalment: null, // Confirmed on enquiry; not fabricated
+    durationMonths: 30,
+    members: 30,
     location: 'Shamshabad, Hyderabad',
     status: 'open',
-    notes: SAMPLE_PLAN_NOTICE,
-    isPlaceholder: true,
+    notes: 'New Group • Open for Enquiries',
+    isPlaceholder: false,
   },
   {
-    id: 'sample-plan-250k',
-    name: 'Sample Scheme 2.5 Lakhs (Mock)',
-    chitValue: 250000,
-    monthlyInstalment: 5000,
-    durationMonths: 50,
-    members: 50,
-    location: 'Shamshabad, Hyderabad',
-    status: 'filling',
-    notes: SAMPLE_PLAN_NOTICE,
-    isPlaceholder: true,
-  },
-  {
-    id: 'sample-plan-500k',
-    name: 'Sample Scheme 5 Lakhs (Mock)',
-    chitValue: 500000,
-    monthlyInstalment: 10000,
-    durationMonths: 50,
-    members: 50,
+    id: 'new-group-6l-30m',
+    name: 'New Group ₹6 Lakhs (30M)',
+    chitValue: 600000,
+    monthlyInstalment: null, // Confirmed on enquiry; not fabricated
+    durationMonths: 30,
+    members: 30,
     location: 'Shamshabad, Hyderabad',
     status: 'open',
-    notes: SAMPLE_PLAN_NOTICE,
-    isPlaceholder: true,
+    notes: 'New Group • Open for Enquiries',
+    isPlaceholder: false,
+  },
+
+  // ==========================================
+  // RUNNING / FULL CHIT GROUPS (7 Groups)
+  // Currently full; no available slots
+  // ==========================================
+  {
+    id: 'running-group-30l-30m',
+    name: 'Running Group ₹30 Lakhs (30M)',
+    chitValue: 3000000,
+    monthlyInstalment: null,
+    durationMonths: 30,
+    members: 30,
+    location: 'Shamshabad, Hyderabad',
+    status: 'full',
+    notes: 'Running Group • Currently Full',
+    isPlaceholder: false,
   },
   {
-    id: 'sample-plan-1000k',
-    name: 'Sample Scheme 10 Lakhs (Mock)',
+    id: 'running-group-6l-30m',
+    name: 'Running Group ₹6 Lakhs (30M)',
+    chitValue: 600000,
+    monthlyInstalment: null,
+    durationMonths: 30,
+    members: 30,
+    location: 'Shamshabad, Hyderabad',
+    status: 'full',
+    notes: 'Running Group • Currently Full',
+    isPlaceholder: false,
+  },
+  {
+    id: 'running-group-3l-30m',
+    name: 'Running Group ₹3 Lakhs (30M)',
+    chitValue: 300000,
+    monthlyInstalment: null,
+    durationMonths: 30,
+    members: 30,
+    location: 'Shamshabad, Hyderabad',
+    status: 'full',
+    notes: 'Running Group • Currently Full',
+    isPlaceholder: false,
+  },
+  {
+    id: 'running-group-10l-40m',
+    name: 'Running Group ₹10 Lakhs (40M)',
     chitValue: 1000000,
-    monthlyInstalment: 20000,
-    durationMonths: 50,
-    members: 50,
-    location: 'Shamshabad, Hyderabad',
-    status: 'filling',
-    notes: SAMPLE_PLAN_NOTICE,
-    isPlaceholder: true,
-  },
-  {
-    id: 'sample-plan-2000k',
-    name: 'Sample Scheme 20 Lakhs (Mock)',
-    chitValue: 2000000,
-    monthlyInstalment: 50000,
+    monthlyInstalment: null,
     durationMonths: 40,
     members: 40,
     location: 'Shamshabad, Hyderabad',
-    status: 'upcoming',
-    notes: SAMPLE_PLAN_NOTICE,
-    isPlaceholder: true,
+    status: 'full',
+    notes: 'Running Group • Currently Full',
+    isPlaceholder: false,
   },
   {
-    id: 'sample-plan-5000k',
-    name: 'Sample Scheme 50 Lakhs (Mock)',
-    chitValue: 5000000,
-    monthlyInstalment: 100000,
+    id: 'running-group-5l-40m',
+    name: 'Running Group ₹5 Lakhs (40M)',
+    chitValue: 500000,
+    monthlyInstalment: null,
+    durationMonths: 40,
+    members: 40,
+    location: 'Shamshabad, Hyderabad',
+    status: 'full',
+    notes: 'Running Group • Currently Full',
+    isPlaceholder: false,
+  },
+  {
+    id: 'running-group-10l-50m',
+    name: 'Running Group ₹10 Lakhs (50M)',
+    chitValue: 1000000,
+    monthlyInstalment: null,
     durationMonths: 50,
     members: 50,
     location: 'Shamshabad, Hyderabad',
     status: 'full',
-    notes: SAMPLE_PLAN_NOTICE,
-    isPlaceholder: true,
+    notes: 'Running Group • Currently Full',
+    isPlaceholder: false,
+  },
+  {
+    id: 'running-group-25l-50m',
+    name: 'Running Group ₹25 Lakhs (50M)',
+    chitValue: 2500000,
+    monthlyInstalment: null,
+    durationMonths: 50,
+    members: 50,
+    location: 'Shamshabad, Hyderabad',
+    status: 'full',
+    notes: 'Running Group • Currently Full',
+    isPlaceholder: false,
   },
 ];
 
 /**
- * Returns all configured chit plans.
+ * Returns all configured chit plans (9 confirmed groups).
  */
 export function getAllChitPlans(): ChitPlan[] {
   return chitPlans;
 }
 
 /**
- * Returns the top 3 featured plans (for home page preview).
+ * Returns the 2 open new groups.
+ */
+export function getOpenChitPlans(): ChitPlan[] {
+  return chitPlans.filter((plan) => plan.status === 'open');
+}
+
+/**
+ * Returns the 7 running/full groups.
+ */
+export function getFullChitPlans(): ChitPlan[] {
+  return chitPlans.filter((plan) => plan.status === 'full');
+}
+
+/**
+ * Returns featured plans for the home page preview:
+ * Displays the 2 open new groups + 1 running group to demonstrate active operations.
  */
 export function getFeaturedChitPlans(): ChitPlan[] {
   return chitPlans.slice(0, 3);

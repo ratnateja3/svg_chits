@@ -27,8 +27,8 @@ export const siteConfig: SiteConfig = {
   },
 
   contact: {
-    phone: null, // Placeholder: Official phone number pending confirmation
-    phoneDisplay: null,
+    phone: '9392824461', // Confirmed official business phone
+    phoneDisplay: '+91 93928 24461',
     whatsapp: null, // Placeholder: Official WhatsApp number pending confirmation
     whatsappDisplay: null,
     email: null, // Placeholder: Official email address pending confirmation

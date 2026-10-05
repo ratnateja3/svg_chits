@@ -8,6 +8,8 @@ import { chitPlans } from '@/content/chit-plans';
 import { siteConfig } from '@/content/site';
 import { getTelLink, getWhatsAppLink } from '@/lib/contact';
 import { Button } from '@/components/ui/Button';
+import { persistAttribution, getStoredAttribution } from '@/lib/attribution';
+import { trackLeadGeneration, trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
 
 export interface EnquiryFormProps {
   initialPlanName?: string;
@@ -58,6 +60,23 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
     honeypot: '',
   });
 
+  // Hydrate stored attribution from prior landing or page navigations
+  useEffect(() => {
+    const stored = getStoredAttribution();
+    if (Object.keys(stored).length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        utmSource: prev.utmSource || stored.utmSource,
+        utmMedium: prev.utmMedium || stored.utmMedium,
+        utmCampaign: prev.utmCampaign || stored.utmCampaign,
+        utmTerm: prev.utmTerm || stored.utmTerm,
+        utmContent: prev.utmContent || stored.utmContent,
+        gclid: prev.gclid || stored.gclid,
+        fbclid: prev.fbclid || stored.fbclid,
+      }));
+    }
+  }, []);
+
   const handleParamsSync = useCallback((params: {
     plan?: string;
     utmSource?: string;
@@ -68,6 +87,9 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
     gclid?: string;
     fbclid?: string;
   }) => {
+    // Persist attribution into session storage
+    const persisted = persistAttribution(params);
+
     setFormData((prev) => {
       let planName = prev.chitPlanName;
       if (!planName && params.plan) {
@@ -82,13 +104,13 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
       return {
         ...prev,
         chitPlanName: planName,
-        utmSource: prev.utmSource || params.utmSource,
-        utmMedium: prev.utmMedium || params.utmMedium,
-        utmCampaign: prev.utmCampaign || params.utmCampaign,
-        utmTerm: prev.utmTerm || params.utmTerm,
-        utmContent: prev.utmContent || params.utmContent,
-        gclid: prev.gclid || params.gclid,
-        fbclid: prev.fbclid || params.fbclid,
+        utmSource: prev.utmSource || params.utmSource || persisted.utmSource,
+        utmMedium: prev.utmMedium || params.utmMedium || persisted.utmMedium,
+        utmCampaign: prev.utmCampaign || params.utmCampaign || persisted.utmCampaign,
+        utmTerm: prev.utmTerm || params.utmTerm || persisted.utmTerm,
+        utmContent: prev.utmContent || params.utmContent || persisted.utmContent,
+        gclid: prev.gclid || params.gclid || persisted.gclid,
+        fbclid: prev.fbclid || params.fbclid || persisted.fbclid,
       };
     });
   }, []);
@@ -145,6 +167,7 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
       if (result.success) {
         setSubmitStatus('success');
         setFeedbackMessage(result.message);
+        trackLeadGeneration(formData.chitPlanName, 'enquiry_form');
         if (onSuccess) onSuccess();
       } else {
         setSubmitStatus('error');
@@ -389,7 +412,7 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
               <option value="">General Chit Inquiry / Suggest a Scheme</option>
               {chitPlans.map((plan) => (
                 <option key={plan.id} value={plan.name}>
-                  {plan.name} ({plan.durationMonths} Months)
+                  {plan.name} — {plan.status === 'open' ? 'Open for Enquiries' : 'Currently Full (Future Availability)'}
                 </option>
               ))}
             </select>

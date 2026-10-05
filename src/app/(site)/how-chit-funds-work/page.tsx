@@ -6,12 +6,14 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `How Chit Funds Work | ${siteConfig.name}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: `How Chit Funds Work | Educational Guide | ${siteConfig.name}`,
   description:
-    'A comprehensive, step-by-step guide to understanding registered chit funds, monthly auctions, dividend discounts, and prize disbursements.',
-};
+    'A step-by-step guide explaining registered chit funds, monthly reverse auctions, dividend distributions, and prize disbursement under the Chit Funds Act, 1982.',
+  path: '/how-chit-funds-work',
+});
 
 const detailedSteps = [
   {

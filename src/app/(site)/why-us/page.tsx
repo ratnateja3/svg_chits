@@ -6,11 +6,13 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `Why Choose Us | ${siteConfig.name}`,
-  description: `Discover the qualitative commitments to statutory compliance, transparent operations, and subscriber trust that define ${siteConfig.name}.`,
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: `Why Choose Us | Registered Chit Fund Trust | ${siteConfig.name}`,
+  description: `Discover our commitments to statutory compliance under the Chit Funds Act, 1982, auditable records, and subscriber transparency at ${siteConfig.name}.`,
+  path: '/why-us',
+});
 
 const trustPillars = [
   {

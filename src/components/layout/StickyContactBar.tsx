@@ -1,6 +1,10 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { siteConfig } from '@/content/site';
+import { getTelLink } from '@/lib/contact';
+import { trackCallClick, trackEnquireClick } from '@/lib/analytics';
 
 /**
  * Sticky bottom contact bar for mobile viewports.
@@ -9,9 +13,10 @@ import { siteConfig } from '@/content/site';
  */
 export function StickyContactBar() {
   const { phone, whatsapp } = siteConfig.contact;
+  const telLink = getTelLink();
 
   // Check which actions are available
-  const hasPhone = Boolean(phone && phone.trim());
+  const hasPhone = Boolean(telLink && phone && phone.trim());
   const hasWhatsapp = Boolean(whatsapp && whatsapp.trim());
 
   // Enquire is always available via the contact route
@@ -21,9 +26,10 @@ export function StickyContactBar() {
       className="fixed bottom-0 left-0 right-0 z-40 border-t border-neutral-200 bg-white px-3 pb-[calc(0.5rem+env(safe-area-inset-bottom,0px))] pt-2 shadow-[0_-2px_8px_rgba(0,0,0,0.06)] lg:hidden"
     >
       <div className="mx-auto grid max-w-md auto-cols-fr grid-flow-col gap-2">
-        {hasPhone && (
+        {hasPhone && telLink && (
           <a
-            href={`tel:${phone}`}
+            href={telLink}
+            onClick={() => trackCallClick(phone!, 'sticky_bar')}
             className="flex min-h-[44px] items-center justify-center gap-1.5 rounded-md border border-neutral-300 bg-neutral-100 px-3 py-2.5 text-sm font-semibold text-neutral-800 hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700 active:bg-neutral-300"
             aria-label="Call Shri Vijaya Ganapathi Chit Fund"
           >
@@ -67,6 +73,7 @@ export function StickyContactBar() {
 
         <Link
           href="/contact"
+          onClick={() => trackEnquireClick('sticky_bar')}
           className="flex min-h-[44px] items-center justify-center gap-1.5 rounded-md border border-brand-purple-950/20 bg-brand-purple-900 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-brand-purple-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700 active:bg-brand-purple-950"
         >
           <svg

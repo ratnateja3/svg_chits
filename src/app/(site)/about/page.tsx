@@ -6,11 +6,13 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: `About Us | ${siteConfig.name}`,
-  description: `Learn about ${siteConfig.name}, our mission, vision, core values, and commitment to disciplined financial savings under the Chit Funds Act, 1982.`,
-};
+  description: `Learn about ${siteConfig.name}, our mission, vision, core values, and regulatory adherence to disciplined savings under the Chit Funds Act, 1982 in Shamshabad, Hyderabad.`,
+  path: '/about',
+});
 
 const values = [
   {

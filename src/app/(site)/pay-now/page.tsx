@@ -7,11 +7,14 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
 import { getTelLink, getWhatsAppLink } from '@/lib/contact';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `Online Payments | ${siteConfig.name}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: `Online Payment Portal (Coming Soon) | ${siteConfig.name}`,
   description: `Online chit instalment payment gateway information for ${siteConfig.name}. Online payments are coming soon. Contact our Shamshabad office for current payment methods.`,
-};
+  path: '/pay-now',
+  noIndex: true, // Explicitly noindex across all environments
+});
 
 export default function PayNowPage() {
   const telLink = getTelLink();

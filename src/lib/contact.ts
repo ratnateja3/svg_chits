@@ -18,7 +18,8 @@ export function getTelLink(phoneOverride?: string | null): string | null {
 
   // Remove whitespace, hyphens, and parentheses
   const cleaned = rawPhone.replace(/[\s\-()]/g, '');
-  return `tel:${cleaned}`;
+  const formatted = cleaned.startsWith('+') ? cleaned : cleaned.length === 10 ? `+91${cleaned}` : cleaned;
+  return `tel:${formatted}`;
 }
 
 /**

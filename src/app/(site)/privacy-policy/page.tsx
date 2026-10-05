@@ -6,11 +6,13 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `Privacy Policy (Draft) | ${siteConfig.name}`,
-  description: `Draft privacy policy and subscriber enquiry data handling guidelines of ${siteConfig.name}.`,
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: `Privacy Policy (Draft Notice) | ${siteConfig.name}`,
+  description: `Draft privacy guidelines and subscriber enquiry data handling disclosures for the public website of ${siteConfig.name}.`,
+  path: '/privacy-policy',
+});
 
 export default function PrivacyPolicyPage() {
   return (

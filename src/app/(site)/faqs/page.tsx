@@ -5,12 +5,14 @@ import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Button } from '@/components/ui/Button';
 import { siteConfig } from '@/content/site';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `Frequently Asked Questions | ${siteConfig.name}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: `Frequently Asked Questions | Chit Fund FAQs | ${siteConfig.name}`,
   description:
-    'Common questions and answers regarding chit fund enrollment, monthly instalments, reverse auction bidding, and prize disbursement.',
-};
+    'Clear answers to common questions about registered chit funds, monthly instalments, reverse auction bidding, and prize disbursement in Telangana.',
+  path: '/faqs',
+});
 
 const faqItems = [
   {
