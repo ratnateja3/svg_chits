@@ -12,9 +12,14 @@ export function HeroSection() {
   const whatsappLink = getWhatsAppLink();
 
   return (
-    <section className="relative border-b border-brand-purple-100/80 bg-brand-purple-50/30 py-12 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative border-b border-brand-purple-100/80 bg-brand-purple-50/30 py-10 sm:py-14 md:py-16 lg:py-20">
       <Container size="default">
         <div className="mx-auto max-w-3xl text-center">
+          {/* Eyebrow */}
+          <div className="mb-4 inline-flex items-center rounded border border-brand-purple-200/80 bg-brand-purple-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-purple-900">
+            Registered Chit Fund &bull; {siteConfig.address.area}, {siteConfig.address.city}
+          </div>
+
           {/* Primary Headline */}
           <h1 className="font-serif text-3xl font-bold tracking-tight text-brand-purple-950 sm:text-4xl md:text-5xl lg:text-[3.25rem] lg:leading-[1.15]">
             Disciplined Monthly Savings &amp; Accessible Capital for Your Milestones
@@ -39,15 +44,6 @@ export function HeroSection() {
               Enquire Now
             </Button>
 
-            <Button
-              href="/chit-groups"
-              variant="outline"
-              size="lg"
-              className="min-w-[160px] bg-white text-brand-purple-900 border-brand-purple-900 hover:bg-brand-purple-50"
-            >
-              Explore Chit Groups
-            </Button>
-
             {whatsappLink && (
               <a
                 href={whatsappLink}
@@ -64,7 +60,7 @@ export function HeroSection() {
               <a
                 href={telLink}
                 onClick={() => trackCallClick(siteConfig.contact.phone!, 'hero')}
-                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border border-neutral-300 bg-white px-5 py-3 text-base font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
+                className="hidden lg:inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border border-neutral-300 bg-white px-5 py-3 text-base font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
               >
                 <span>Call Office</span>
               </a>

@@ -23,11 +23,11 @@ export default function HomePage() {
       {/* 1. Hero */}
       <HeroSection />
 
-      {/* 2. Company Introduction */}
-      <IntroSection />
-
-      {/* 3. Chit Groups Preview */}
+      {/* 2. Open Chit Groups */}
       <ChitPreviewSection />
+
+      {/* 3. Company Introduction */}
+      <IntroSection />
 
       {/* 4. How Chit Funds Work */}
       <HowItWorksSection />

@@ -10,6 +10,7 @@ export interface ChitPlanCardProps {
   plan: ChitPlan;
   onEnquire?: (plan: ChitPlan) => void;
   className?: string;
+  variant?: 'default' | 'compact';
 }
 
 const statusBadges: Record<ChitPlanStatus, { label: string; className: string }> = {
@@ -31,9 +32,72 @@ const statusBadges: Record<ChitPlanStatus, { label: string; className: string }>
   },
 };
 
-export function ChitPlanCard({ plan, onEnquire, className }: ChitPlanCardProps) {
+export function ChitPlanCard({
+  plan,
+  onEnquire,
+  className,
+  variant = 'default',
+}: ChitPlanCardProps) {
   const badge = statusBadges[plan.status];
   const isFull = plan.status === 'full';
+
+  if (variant === 'compact') {
+    return (
+      <Card
+        border
+        hover
+        className={`relative flex flex-col justify-between p-6 sm:p-7 ${className || ''}`}
+      >
+        <div>
+          {/* Status Badge */}
+          <div className="mb-4">
+            <span
+              className={`inline-flex items-center rounded border px-2.5 py-1 text-xs ${badge.className}`}
+            >
+              {badge.label}
+            </span>
+          </div>
+
+          {/* Chit Value Once */}
+          <div>
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+              Total Chit Value
+            </p>
+            <div className="font-serif text-3xl font-bold tracking-tight text-brand-purple-900">
+              {formatIndianCurrency(plan.chitValue)}
+            </div>
+          </div>
+
+          {/* Duration and Members Once */}
+          <p className="mt-4 text-sm font-medium text-neutral-600">
+            {plan.durationMonths} months - {plan.members} members
+          </p>
+        </div>
+
+        {/* Card Action */}
+        <div className="mt-6 pt-4">
+          {onEnquire ? (
+            <Button
+              type="button"
+              variant={isFull ? 'outline' : 'primary'}
+              fullWidth
+              onClick={() => onEnquire(plan)}
+            >
+              {isFull ? 'Ask About Future Availability' : 'Enquire for This Group'}
+            </Button>
+          ) : (
+            <Button
+              href={`/contact?plan=${encodeURIComponent(plan.name)}`}
+              variant={isFull ? 'outline' : 'primary'}
+              fullWidth
+            >
+              {isFull ? 'Ask About Future Availability' : 'Enquire for This Group'}
+            </Button>
+          )}
+        </div>
+      </Card>
+    );
+  }
 
   return (
     <Card
