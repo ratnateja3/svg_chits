@@ -18,9 +18,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-30 w-full border-b border-brand-purple-900 bg-brand-purple-950 shadow-sm">
       <Container size="wide">
-        <div className="flex h-20 items-center justify-between gap-4">
+        <div className="flex h-20 items-center justify-between gap-2 min-w-0 sm:gap-4">
           {/* Logo / Brand identity */}
-          <div className="flex-shrink-0">
+          <div className="min-w-0 flex-1 lg:flex-initial lg:shrink-0">
             <Logo variant="light" />
           </div>
 

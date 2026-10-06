@@ -41,6 +41,7 @@ export interface SiteConfig {
   contact: CompanyContact;
   legal: CompanyLegal;
   socials: CompanySocials;
+  shortIntro?: string;
 }
 
 export interface NavItem {

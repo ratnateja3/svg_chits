@@ -38,14 +38,14 @@ export function MobileNav() {
   }, [isOpen]);
 
   return (
-    <div className="flex items-center lg:hidden">
+    <div className="flex shrink-0 items-center lg:hidden">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-menu"
         aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
-        className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2.5 text-neutral-200 hover:bg-brand-purple-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-400"
+        className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-md p-2.5 text-neutral-200 hover:bg-brand-purple-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-400"
       >
         <span className="sr-only">{isOpen ? 'Close menu' : 'Open menu'}</span>
         {isOpen ? (

@@ -12,6 +12,9 @@ export const siteConfig: SiteConfig = {
   name: 'Shri Vijaya Ganapathi Chit Fund Pvt Ltd',
   shortName: 'SVG Chits',
   tagline: 'Trusted Chit Fund & Financial Savings',
+  // CONTENT-REVIEW: statutory wording ("Chit Funds Act, 1982") & liquidity wording ("access financial liquidity")
+  shortIntro:
+    'Shri Vijaya Ganapathi Chit Fund Pvt Ltd operates in accordance with the statutory provisions of the Chit Funds Act, 1982 in the State of Telangana. We serve individual savers, salaried professionals, and local business enterprises seeking a structured path to accumulate capital and access financial liquidity.',
   domain: null, // Placeholder: Domain to be confirmed
 
   address: {

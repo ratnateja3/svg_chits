@@ -19,14 +19,14 @@ export function Logo({ className = '', variant = 'dark' }: LogoProps) {
   return (
     <Link
       href="/"
-      className={`inline-flex items-center gap-3 rounded transition-opacity hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 ${
+      className={`inline-flex min-w-0 max-w-full items-center gap-2 rounded transition-opacity hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 sm:gap-3 ${
         isLight
           ? 'focus-visible:ring-brand-gold-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-purple-950'
           : 'focus-visible:ring-brand-purple-700 focus-visible:ring-offset-2'
       } ${className}`}
       aria-label={`${siteConfig.name} - Home`}
     >
-      <div className="relative h-10 w-10 flex-shrink-0 sm:h-11 sm:w-11">
+      <div className="relative h-9 w-9 shrink-0 sm:h-10 sm:w-10 md:h-11 md:w-11">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={logoSrc}
@@ -35,16 +35,16 @@ export function Logo({ className = '', variant = 'dark' }: LogoProps) {
         />
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex min-w-0 flex-col">
         <span
-          className={`font-serif text-base font-bold leading-tight tracking-tight sm:text-lg ${
+          className={`font-serif text-[13px] font-bold leading-tight tracking-tight min-[360px]:text-sm min-[430px]:text-base sm:text-base lg:text-lg ${
             isLight ? 'text-white' : 'text-brand-purple-900'
           }`}
         >
           {siteConfig.name}
         </span>
         <span
-          className={`text-[11px] font-medium uppercase tracking-wider ${
+          className={`text-[10px] font-medium uppercase tracking-wider min-[430px]:text-[11px] ${
             isLight ? 'text-brand-gold-300' : 'text-neutral-500'
           }`}
         >

@@ -2,10 +2,9 @@ import type { Metadata } from 'next';
 import { siteConfig } from '@/content/site';
 import { buildPageMetadata } from '@/lib/seo';
 import { HeroSection } from '@/components/home/HeroSection';
-import { IntroSection } from '@/components/home/IntroSection';
 import { ChitPreviewSection } from '@/components/home/ChitPreviewSection';
+import { TrustCompanySection } from '@/components/home/TrustCompanySection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
-import { WhyChooseUsSection } from '@/components/home/WhyChooseUsSection';
 import { BenefitsSection } from '@/components/home/BenefitsSection';
 import { EnquiryCtaSection } from '@/components/home/EnquiryCtaSection';
 import { SocialSection } from '@/components/home/SocialSection';
@@ -26,22 +25,19 @@ export default function HomePage() {
       {/* 2. Open Chit Groups */}
       <ChitPreviewSection />
 
-      {/* 3. Company Introduction */}
-      <IntroSection />
+      {/* 3. Trust & Company Profile */}
+      <TrustCompanySection />
 
       {/* 4. How Chit Funds Work */}
       <HowItWorksSection />
 
-      {/* 5. Why Choose Us */}
-      <WhyChooseUsSection />
-
-      {/* 6. Benefits / Use Cases */}
+      {/* 5. Benefits / Use Cases */}
       <BenefitsSection />
 
-      {/* 7. Enquiry CTA */}
+      {/* 6. Enquiry CTA */}
       <EnquiryCtaSection />
 
-      {/* 8. Social Media Section */}
+      {/* 7. Social Media Section */}
       <SocialSection />
     </>
   );
