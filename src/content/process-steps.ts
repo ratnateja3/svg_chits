@@ -20,7 +20,7 @@ export const processSteps: ProcessStep[] = [
     description:
       'Complete standard subscriber documentation and KYC verification, and execute the official subscriber agreement before the group commences.',
     shortDescription:
-      'Complete standard KYC verification and sign the registered subscriber agreement.',
+      'Complete standard KYC verification and sign the official subscriber agreement.',
   },
   {
     step: '03',
@@ -46,7 +46,7 @@ export const processSteps: ProcessStep[] = [
     description:
       'Upon winning the bid and submitting necessary security documentation per statutory standards, the prized chit amount is promptly disbursed.',
     shortDescription:
-      'Submit prescribed security documentation to receive timely prize money disbursement.',
+      'Submit the required security documentation to receive the prize amount as applicable.',
   },
   {
     step: '06',
