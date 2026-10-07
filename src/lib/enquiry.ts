@@ -23,12 +23,18 @@ export function normalizePhoneNumber(phone: string): string {
 }
 
 /**
- * Generates a short client-side submission ID: base36 timestamp + 4 random alphanumeric characters.
- * Example: 'm2k4p8x-7ab9'
+ * Generates a unique client-side submission ID per submission using crypto.randomUUID with fallback.
  */
 export function generateSubmissionId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    try {
+      return crypto.randomUUID();
+    } catch {
+      // Fallback if randomUUID fails or is unavailable
+    }
+  }
   const ts = Date.now().toString(36);
-  const rand = Math.random().toString(36).substring(2, 6);
+  const rand = Math.random().toString(36).substring(2, 10);
   return `${ts}-${rand}`;
 }
 
@@ -68,7 +74,7 @@ export function validateEnquiryForm(data: EnquiryFormData): {
 /**
  * Submits the enquiry form payload to the configured hosted form provider (primary delivery).
  * In parallel, if NEXT_PUBLIC_SHEET_ENDPOINT is configured, sends a non-blocking copy
- * to the Google Apps Script Web App (backup delivery).
+ * to the Google Apps Script Web App (convenience backup delivery).
  *
  * Handles honeypot spam silently. Normalizes phone numbers to clean 10 digits.
  * Never logs sensitive PII to browser console.
@@ -109,26 +115,25 @@ export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmi
   const currentPath =
     data.pagePath || (typeof window !== 'undefined' ? window.location.pathname : '/');
 
-  // Flat, clean snake_case payload for hosted form provider and spreadsheet backup
+  // Flat, clean snake_case payload for hosted form provider and spreadsheet backup.
+  // Empty values are always sent as empty strings.
   const payload: Record<string, string> = {
     submission_id: submissionId,
-    name: data.name.trim(),
+    name: data.name ? data.name.trim() : '',
     phone: normalizedPhone,
     interested_in: data.chitPlanName?.trim() || data.chitPlanId?.trim() || 'General Chit Inquiry',
-    message: data.message?.trim() || '',
+    message: data.message ? data.message.trim() : '',
     consent: 'yes',
-    form_location: data.formLocation || 'contact_page',
+    form_location: data.formLocation || 'contact-page',
     page_path: currentPath,
-    submitted_at: new Date().toISOString(),
+    utm_source: data.utmSource || '',
+    utm_medium: data.utmMedium || '',
+    utm_campaign: data.utmCampaign || '',
+    utm_term: data.utmTerm || '',
+    utm_content: data.utmContent || '',
+    gclid: data.gclid || '',
+    fbclid: data.fbclid || '',
   };
-
-  if (data.utmSource) payload.utm_source = data.utmSource;
-  if (data.utmMedium) payload.utm_medium = data.utmMedium;
-  if (data.utmCampaign) payload.utm_campaign = data.utmCampaign;
-  if (data.utmTerm) payload.utm_term = data.utmTerm;
-  if (data.utmContent) payload.utm_content = data.utmContent;
-  if (data.gclid) payload.gclid = data.gclid;
-  if (data.fbclid) payload.fbclid = data.fbclid;
 
   // STEP 7: Optional Google Sheets copy (environment-variable-gated, non-blocking fire-and-forget)
   const sheetEndpoint = process.env.NEXT_PUBLIC_SHEET_ENDPOINT;
@@ -142,12 +147,15 @@ export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmi
           'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify(payload),
-      }).catch(() => {
-        // Non-blocking fire-and-forget: do not leak PII in console
-        console.warn(`[Sheet Backup] Delivery warning for submission_id: ${submissionId}`);
+      }).catch((err) => {
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('[Sheet Copy Warning]', err);
+        }
       });
-    } catch {
-      // Non-blocking catch
+    } catch (err) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[Sheet Copy Error]', err);
+      }
     }
   }
 
@@ -162,7 +170,9 @@ export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmi
     });
 
     if (!response.ok) {
-      console.warn(`[Enquiry Submission Failed] Submission ID: ${submissionId}, HTTP status: ${response.status}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(`[Enquiry Submission Failed] Submission ID: ${submissionId}, HTTP status: ${response.status}`);
+      }
       throw new Error(`Submission failed with status ${response.status}`);
     }
 
@@ -171,7 +181,9 @@ export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmi
       message: 'Thank you! Your enquiry has been received. Our team will reach out shortly.',
     };
   } catch (error) {
-    console.warn(`[Enquiry Submission Error] Submission ID: ${submissionId}`);
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`[Enquiry Submission Error] Submission ID: ${submissionId}`);
+    }
     return {
       success: false,
       message: 'We could not submit your enquiry online. Please call or WhatsApp our office.',

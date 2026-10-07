@@ -247,8 +247,10 @@ Phrases tagged with `CONTENT-REVIEW` in content files and logged for pre-launch 
 | **"Verified Company Details"** | `src/components/home/IntroSection.tsx:65`, `src/components/home/TrustCompanySection.tsx:71` | Eyebrow label on legal details card | UI label identifying official statutory profile and office details. |
 | **"complete transparency"** | `src/components/home/IntroSection.tsx:43`, `src/app/(site)/why-us/page.tsx:62` | Narrative text on About and Why Us | Review whether absolute modifier "complete" is preferred or should be "transparent group administration". |
 | **Legal-basis / Statutory Wording** | `src/content/site.ts:16`, `src/content/why-us.ts:14,28`, `src/components/home/TrustCompanySection.tsx:86`, `src/app/(site)/about/page.tsx:21,70,114`, `src/app/(site)/why-us/page.tsx:13,21,138` | Reference to Chit Funds Act, 1982 and Telangana state jurisdiction | Ensure correct statutory reference phrasing across all public descriptions. |
-| **Dividend Wording** | `src/content/why-us.ts:13`, `src/app/(site)/about/page.tsx:21,82`, `src/app/(site)/why-us/page.tsx:26,47` | Reference to auction bid discounts and dividend distributions | Ensure explanation accurately depicts dividend distribution mechanisms under the Act. |
-| **Emergency-Liquidity Wording** | `src/content/site.ts:16`, `src/components/home/IntroSection.tsx:32`, `src/app/(site)/about/page.tsx:31` | Reference to accumulated capital and financial liquidity | Verify description of access to funds via competitive monthly auctions. |
+| **Dividend Wording** | `src/content/why-us.ts:13`, `src/app/(site)/about/page.tsx:21,82`, `src/app/(site)/why-us/page.tsx:26,47`, `src/content/process-steps.ts:28`, `src/components/home/BenefitsSection.tsx:11` | Reference to auction bid discounts and dividend distributions | Ensure explanation accurately depicts dividend distribution mechanisms under the Act. |
+| **Emergency-Liquidity Wording** | `src/content/site.ts:16`, `src/components/home/IntroSection.tsx:32`, `src/app/(site)/about/page.tsx:31`, `src/content/process-steps.ts:37`, `src/components/home/BenefitsSection.tsx:42` | Reference to accumulated capital and financial liquidity | Verify description of access to funds via competitive monthly auctions. |
+| **Google Sheet Enquiry Storage** | `docs/enquiry-spreadsheet-setup.md`, `src/lib/enquiry.ts` | Customer PII backup copy in Google Sheets | Privacy Policy and Terms must mention the Google Sheet copy of enquiries if STEP 7 is enabled. |
+
 
 ---
 
@@ -318,3 +320,182 @@ Measured via automated headless browser (Microsoft Edge via Playwright) reportin
 - **H3 Order**: Properly nested under parent sections (4 trust points in Section 3, process steps in Section 4, use cases in Section 5).
 - **Address & Phone**: Read dynamically from `siteConfig.address` and `siteConfig.contact.phoneDisplay` in `content/site.ts`.
 - **Touch Targets**: All key CTA buttons and links maintain `>= 44px` touch targets.
+
+---
+
+## Phase 3 Resume Audit
+
+Conducted following computer shutdown / session interruption prior to resuming Phase 3 work.
+
+### 1. Working Tree & Git Status
+- **Current Branch**: `phase-10-wip` (matches upstream `origin/phase-10-wip`).
+- **Working Tree State**: Clean (`git status` reports `nothing to commit, working tree clean`).
+- **Committed Pre-interruption Changes**: Changes from the interrupted Phase 3 run were committed into HEAD commit `3e163b4` ("phase 10 wip"):
+  - `src/app/(site)/how-chit-funds-work/page.tsx` (added `<BenefitsSection />` component)
+  - `src/components/home/BenefitsSection.tsx` (added `CONTENT-REVIEW` comments for dividend and liquidity wording)
+  - `src/components/home/CompactHowItWorksSection.tsx` (created compact 6-step section with combined notices)
+  - `src/components/home/EnquiryCtaSection.tsx` (updated CTA buttons, added FAQ link, removed address)
+  - `src/content/process-steps.ts` (created with neutral `shortDescription` fields and `CONTENT-REVIEW` tags)
+  - `src/lib/enquiry.ts` (added phone normalization, submission ID, flat snake_case payload, parallel sheet fetch)
+  - `src/types/index.ts` (added `formLocation` and `pagePath` to `EnquiryFormData`)
+- **Untracked / Added Files**: None.
+
+### 2. Step-by-Step Status Assessment
+- **STEP 2 (Compact How It Works)**: **Partially Done**.
+  - `src/content/process-steps.ts` exists with additive `shortDescription` strings for all 6 steps.
+  - `src/components/home/CompactHowItWorksSection.tsx` exists and implements the single step number, mobile vertical list, and desktop 3x2 grid, merging educational and financial understanding notices.
+  - *Missing*: Homepage `src/app/(site)/page.tsx` still renders the old `HowItWorksSection`. Needs to swap in `CompactHowItWorksSection`.
+- **STEP 3 (Final Enquiry CTA)**: **Done**.
+  - `src/components/home/EnquiryCtaSection.tsx` preserves heading, sets Enquire Now (primary), Call Our Office (secondary), conditional WhatsApp link, link to `/faqs`, removes repeated office address, and preserves confidentiality sentence.
+- **STEP 4 (Removals and Use Cases Retention)**: **Partially Done**.
+  - `src/app/(site)/how-chit-funds-work/page.tsx` successfully includes `<BenefitsSection />` before the final CTA.
+  - *Missing*: Homepage `src/app/(site)/page.tsx` still renders `BenefitsSection` and `SocialSection`. Both must be removed from the homepage composition.
+- **STEP 5 (Mobile Enquiry Popup)**: **Not Started**.
+  - No popup component, trigger hook, or lazy import in homepage exists.
+- **STEP 6 (Enquiry Payload & Delivery Check)**: **Partially Done**.
+  - Phone normalization and snake_case payload exist in `src/lib/enquiry.ts`.
+  - *Refinements needed*: Ensure `submission_id` uses `crypto.randomUUID` with safe fallback; ensure all 15 specified fields are always present with empty strings for unset values; remove extra `submitted_at`; add mock endpoint verification tests.
+- **STEP 7 (Optional Spreadsheet Copy & Documentation)**: **Partially Done**.
+  - Client-side parallel `no-cors` fetch to `NEXT_PUBLIC_SHEET_ENDPOINT` is coded in `src/lib/enquiry.ts`.
+  - *Missing*: Documentation in `.env.example` and `README.md`; `docs/enquiry-spreadsheet-setup.md` is not yet created; privacy policy content-review note not yet logged.
+
+### 3. Code Integrity & Damage Check (Pre-edit)
+- `npm run lint`: **0 warnings, 0 errors** (PASSED)
+- `npx tsc --noEmit`: **0 type errors** (PASSED)
+- `npm run build`: **Compiled successfully** in 43s (PASSED)
+  - Baseline First Load JS for `/`: **111 kB** (Page size: 4.88 kB, Shared: 103 kB)
+- File integrity: All files are syntactically valid with no truncated blocks, dangling imports, or merge conflicts.
+
+### 4. Leftover Artifacts Check
+- No temporary mock servers, scripts, test files, stray logs, or external screenshots exist.
+- No `.env` or `.env.local` files exist with localhost endpoints or sensitive credentials.
+- Action taken: None needed (no leftovers detected).
+
+### 5. Phases 1 and 2 Integrity Check
+- **Phase 1**: Verified present (Hero with location eyebrow, 3 trust chips, lg-only call CTA; open chit groups showing only 2 schemes with compact cards; dynamic running groups count).
+- **Mobile Header Fix**: Verified present (`min-w-0 flex-1 lg:flex-initial lg:shrink-0` in `Header.tsx`, `min-w-0 max-w-full` in `Logo.tsx`, `shrink-0` in `MobileNav.tsx`). Zero overflow at widths 320px–440px.
+- **Phase 2**: Verified present (`TrustCompanySection` on homepage with 4 trust points, concise intro, registered details card, links to `/about` and `/why-us`; `IntroSection` and `WhyChooseUsSection` removed from homepage).
+
+---
+
+## Phase 3 Implementation & Completion Log
+
+### Changes Summary
+1. **Compact How It Works Section (`CompactHowItWorksSection`)**:
+   - Swapped out old six-card `HowItWorksSection` for a streamlined compact version on the homepage.
+   - Each step displays a single step number (removed redundant `"STEP 0X"`), the step title, and one neutral one-liner derived from existing content in `src/content/process-steps.ts`.
+   - Layout: vertical numbered list on mobile (`grid-cols-1`); light 3x2 grid on desktop (`lg:grid-cols-3`).
+   - Combined the statutory educational notice (with link to `/how-chit-funds-work`) and the financial understanding notice ("Chit funds are dual-purpose savings and credit instruments...") into a single compact notice block directly following the steps.
+2. **Final Enquiry CTA Section (`EnquiryCtaSection`)**:
+   - Preserved primary headline and subtitle.
+   - Action buttons: `"Enquire Now"` (primary) and `"Call Our Office"` (secondary, `>= 44px` touch target). WhatsApp appears only when configured. Removed `"Browse All Schemes"`.
+   - Added direct text link to `/faqs` (`"Have questions? Read our FAQs →"`).
+   - Removed repeated registered office address (remains in Trust block and Footer). Kept confidential reassurance notice.
+3. **Removals from Homepage & Inner Page Retention**:
+   - Removed `BenefitsSection` (Use Cases) and `SocialSection` from `src/app/(site)/page.tsx`.
+   - Retained `BenefitsSection` on `/how-chit-funds-work` directly before the final CTA card.
+   - Retained social link helpers in Footer and `/contact`. Verified no placeholder "pending confirmation" text exists on any other page.
+4. **Mobile Enquiry Bottom-Sheet Popup (`MobileEnquiryPopup` & `MobileEnquirySheet`)**:
+   - Mounted exclusively on homepage (`/`); active only below `md` breakpoint (`< 768px`).
+   - Trigger conditions: visitor has scrolled past the open chit groups section (or >= 40% page height) **AND** >= 8 seconds elapsed since page load.
+   - Session storage: remembers dismissal (`svg_chit_popup_dismissed`) and submission (`svg_chit_popup_submitted`); never re-opens in the same session.
+   - Suppression: does not open if mobile menu is open, if an input is focused, if visitor is within final CTA/footer, or if another dialog is open.
+   - Bottom sheet UI: rounded top corners, backdrop blur overlay, max height `85dvh` with internal scrolling, 44x44px close button, backdrop tap & Escape key dismissal.
+   - Content: Heading `"Interested in joining a chit group?"` and subtext `"Share your details and our team will get in touch."`.
+   - Form fields: Name, Phone, Interested Scheme, Consent with Privacy Policy link; message field hidden via `variant="popup"` and `hideMessage`.
+   - Performance: Sheet component is dynamically loaded via `next/dynamic` (`ssr: false`) so form code is deferred until triggered. First Load JS of `/` only increased from 111 kB to 113 kB (+2 kB).
+5. **Clean Flat Enquiry Payload (STEP 6)**:
+   - Generated client-side unique `submission_id` via `crypto.randomUUID()` with safe timestamp fallback.
+   - Formatted flat snake_case payload: `submission_id`, `name`, `phone`, `interested_in`, `message`, `consent` (`"yes"`), `form_location`, `page_path`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `gclid`, `fbclid`.
+   - Empty values are consistently formatted as empty strings `""`.
+6. **Optional Google Sheets Webhook Copy (STEP 7)**:
+   - Added environment-variable gate `NEXT_PUBLIC_SHEET_ENDPOINT`.
+   - Submits parallel non-blocking `no-cors` `text/plain` POST to the Apps Script URL without blocking visitor feedback.
+   - Documented in `.env.example`, `README.md`, and complete setup guide in `docs/enquiry-spreadsheet-setup.md`.
+
+---
+
+## Phase 3 Verification & Measurement Data
+
+### 1. Document Height & Section Offsets at 390 x 844 px
+
+| Section | Heading / Element | Offset Top (px) | Height (px) | Start Screen | End Screen |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1. Hero | "Disciplined Monthly Savings & Accessible Capital..." | 81 px | 813 px | 0.10 | 1.06 |
+| 2. Open Chit Groups | "Chit Groups Open for Enquiry" | 894 px | 974 px | 1.06 | 2.21 |
+| 3. Trust + Company | "Shri Vijaya Ganapathi Chit Fund Pvt Ltd" | 1,868 px | 1,678 px | 2.21 | 4.20 |
+| 4. Compact How It Works | "How Chit Funds Work" | 3,546 px | 1,503 px | 4.20 | 5.98 |
+| 5. Final Enquiry CTA | "Interested in Exploring a Registered Chit Group?" | 5,049 px | 677 px | **5.98** | 6.78 |
+| 6. Footer | Footer navigation & legal disclaimers | 5,806 px | 1,089 px | 6.88 | **8.17** |
+
+### 2. Homepage Scroll Height Progression across Phases
+
+| Stage | Document Height at 390px | Total Screens (at h:844) | Total Screens (at h:800) | Final CTA Start Screen | Net Delta vs Baseline |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Baseline (Pre-Phase 1)** | 12,231 px | 14.49 screens | 15.29 screens | 11.74 screens | Baseline |
+| **Post-Phase 1** | 11,530 px | 13.66 screens | 14.41 screens | 10.91 screens | -701 px (-0.83 screens) |
+| **Post-Phase 2** | 9,998 px | 11.85 screens | 12.50 screens | 8.85 screens | -2,233 px (-2.64 screens) |
+| **Post-Phase 3 (Current)** | **6,896 px** | **8.17 screens** | **8.62 screens** | **5.98 screens** | **-5,335 px (-6.32 screens)** |
+
+- **Open Groups Start Target**: <= 1.5 screens -> **1.06 screens** (PASS)
+- **Final CTA Reachability Target**: ~7 screens -> **5.98 screens** (PASS)
+
+### 3. First Load JS Size Progression
+
+| Route | Pre-Phase 3 First Load JS | Post-Phase 3 First Load JS | Net Difference |
+| :--- | :--- | :--- | :--- |
+| **`/` (Homepage)** | 111 kB (Page: 4.88 kB) | 113 kB (Page: 6.62 kB) | +2 kB (dynamic popup trigger only) |
+| **`/how-chit-funds-work`** | 107 kB | 107 kB | 0 kB |
+| **`/contact`** | 113 kB | 113 kB | 0 kB |
+
+### 4. Comprehensive Overflow Matrix (11 Routes x 11 Viewports)
+
+Measured in headless Microsoft Edge via Playwright reporting `scrollWidth` vs `clientWidth`:
+
+| Route | 320px | 360px | 375px | 390px | 393px | 402px | 412px | 430px | 440px | 1280px | 1440px |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `/` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/about` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/chit-groups` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/how-chit-funds-work` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/why-us` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/faqs` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/contact` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/pay-now` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/privacy-policy` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/terms-and-conditions` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+| `/not-found-page-404` | 320/320 | 360/360 | 375/375 | 390/390 | 393/393 | 402/402 | 412/412 | 430/430 | 440/440 | 1280/1280 | 1440/1440 |
+
+*Result*: **Zero horizontal overflow** (`scrollWidth === clientWidth`) across all 11 routes and all 11 test viewports.
+
+### 5. Mobile Enquiry Popup Verification Matrix
+
+| Test Scenario | Viewport / Route | Expected Outcome | Measured Result | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Desktop Viewports** | 1280px & 1440px on `/` | Popup never appears | Not visible | PASS |
+| **Route Isolation** | 390px on `/about`, `/contact`, `/chit-groups` | Popup never appears | Not visible | PASS |
+| **Initial Arrival** | 390px on `/` | Does not open on load | Not visible | PASS |
+| **Early Scroll (<8s)** | 390px on `/` | Does not open before 8s | Not visible | PASS |
+| **Qualified Trigger** | 390px on `/` (scroll + 8s) | Opens bottom sheet | Visible (`#mobile-enquiry-sheet`) | PASS |
+| **Close Button** | 390px on `/` | Closes on click, restores scroll | Closed, body scroll restored | PASS |
+| **Session Persistence** | 390px on `/` | Does not re-open in session | Did not re-open | PASS |
+| **Escape Key Dismissal** | 375px on `/` | Closes dialog on Escape | Closed | PASS |
+| **Backdrop Tap Dismissal** | 360px on `/` | Closes dialog on backdrop tap | Closed | PASS |
+| **Suppression (Menu)** | 390px on `/` | Does not open while menu open | Suppressed | PASS |
+| **Touch Target Size** | Close button | >= 44 x 44 px | 44.0 x 44.0 px | PASS |
+| **Short Viewport** | 360 x 640 px | Fits inside 85dvh without overflow | 360/360 px | PASS |
+| **Sticky Bar State** | Mobile viewports | Sticky bar remains active & intact | Intact | PASS |
+
+### 6. Payload & Spreadsheet Delivery Test Matrix (Local Mock Endpoints)
+
+| Test Case | Configuration | Form Mock Received | Sheet Mock Received | Visitor Status | Status |
+| :--- | :--- | :---: | :---: | :--- | :--- |
+| **Unconfigured Endpoint** | No env vars | 0 req | 0 req | Safe fallback with office phone | PASS |
+| **Form Only** | `NEXT_PUBLIC_FORM_ENDPOINT` only | 1 req | 0 req | Success feedback | PASS |
+| **Both Endpoints** | Both env vars configured | 1 req | 1 req | Success feedback; matching IDs | PASS |
+| **15 Field Snake_case** | Full payload verification | 15 fields | 15 fields | All string types, empty = `""` | PASS |
+| **Sheet Outage Resilience** | Sheet mock returns 500 | 1 req | 1 req | Success feedback unaffected | PASS |
+| **Form Provider Failure** | Form mock returns 500 | 1 req | 0 req | Failure fallback with phone | PASS |
+| **Honeypot Bot Trap** | `honeypot: 'spam'` | 0 req | 0 req | Silent success (zero outbound) | PASS |
+
+

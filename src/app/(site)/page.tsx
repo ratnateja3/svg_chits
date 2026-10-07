@@ -4,10 +4,9 @@ import { buildPageMetadata } from '@/lib/seo';
 import { HeroSection } from '@/components/home/HeroSection';
 import { ChitPreviewSection } from '@/components/home/ChitPreviewSection';
 import { TrustCompanySection } from '@/components/home/TrustCompanySection';
-import { HowItWorksSection } from '@/components/home/HowItWorksSection';
-import { BenefitsSection } from '@/components/home/BenefitsSection';
+import { CompactHowItWorksSection } from '@/components/home/CompactHowItWorksSection';
 import { EnquiryCtaSection } from '@/components/home/EnquiryCtaSection';
-import { SocialSection } from '@/components/home/SocialSection';
+import { MobileEnquiryPopup } from '@/components/home/MobileEnquiryPopup';
 
 export const metadata: Metadata = buildPageMetadata({
   title: `${siteConfig.name} | Registered Chit Fund Company in Hyderabad`,
@@ -19,7 +18,7 @@ export const metadata: Metadata = buildPageMetadata({
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero */}
+      {/* 1. Hero + Trust Chips */}
       <HeroSection />
 
       {/* 2. Open Chit Groups */}
@@ -28,17 +27,14 @@ export default function HomePage() {
       {/* 3. Trust & Company Profile */}
       <TrustCompanySection />
 
-      {/* 4. How Chit Funds Work */}
-      <HowItWorksSection />
+      {/* 4. Compact How It Works */}
+      <CompactHowItWorksSection />
 
-      {/* 5. Benefits / Use Cases */}
-      <BenefitsSection />
-
-      {/* 6. Enquiry CTA */}
+      {/* 5. Final Enquiry CTA */}
       <EnquiryCtaSection />
 
-      {/* 7. Social Media Section */}
-      <SocialSection />
+      {/* Mobile Enquiry Popup (Bottom sheet, phone viewports only) */}
+      <MobileEnquiryPopup />
     </>
   );
 }

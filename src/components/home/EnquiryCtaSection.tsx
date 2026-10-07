@@ -14,7 +14,7 @@ export function EnquiryCtaSection() {
   const whatsappLink = getWhatsAppLink();
 
   return (
-    <Section spacing="md" background="white" className="border-b border-neutral-200/80">
+    <Section id="final-enquiry-cta" spacing="md" background="white" className="border-b border-neutral-200/80">
       <Container size="default">
         <div className="rounded-xl border border-brand-purple-200 bg-brand-purple-50/40 p-6 sm:p-10 md:p-12 text-center shadow-xs">
           <span className="inline-block rounded-full border border-brand-gold-400/60 bg-brand-gold-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand-gold-900">

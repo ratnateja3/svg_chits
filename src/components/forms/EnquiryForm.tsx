@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, Suspense, useEffect } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import type { EnquiryFormData } from '@/types';
 import { submitEnquiry, validateEnquiryForm, type EnquiryValidationErrors } from '@/lib/enquiry';
@@ -14,6 +15,9 @@ import { trackLeadGeneration, trackCallClick, trackWhatsAppClick } from '@/lib/a
 export interface EnquiryFormProps {
   initialPlanName?: string;
   className?: string;
+  variant?: 'default' | 'popup';
+  hideMessage?: boolean;
+  formLocation?: string;
   onSuccess?: () => void;
 }
 
@@ -50,7 +54,14 @@ function SearchParamsSync({ onParams }: SearchParamsSyncProps) {
   return null;
 }
 
-export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }: EnquiryFormProps) {
+export function EnquiryForm({
+  initialPlanName = '',
+  className = '',
+  variant = 'default',
+  hideMessage = false,
+  formLocation,
+  onSuccess,
+}: EnquiryFormProps) {
   const [formData, setFormData] = useState<EnquiryFormData>({
     name: '',
     phone: '',
@@ -162,7 +173,11 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
     setIsSubmitting(true);
 
     try {
-      const result = await submitEnquiry(formData);
+      const result = await submitEnquiry({
+        ...formData,
+        formLocation: formLocation || (variant === 'popup' ? 'homepage-popup' : 'contact-page'),
+        pagePath: typeof window !== 'undefined' ? window.location.pathname : '/',
+      });
 
       if (result.success) {
         setSubmitStatus('success');
@@ -418,25 +433,27 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
             </select>
           </div>
 
-          {/* Field 4: Message (Optional) */}
-          <div>
-            <label
-              htmlFor="enquiry-message"
-              className="mb-1.5 block text-sm font-semibold text-neutral-800"
-            >
-              Message / Specific Requirements{' '}
-              <span className="font-normal text-neutral-400">(Optional)</span>
-            </label>
-            <textarea
-              id="enquiry-message"
-              name="message"
-              rows={3}
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Tell us about your savings goals or questions..."
-              className="min-h-[88px] w-full rounded-md border border-neutral-300 px-3.5 py-2.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-purple-700 focus:outline-none focus:ring-2 focus:ring-brand-purple-700"
-            />
-          </div>
+          {/* Field 4: Message (Optional) - Hidden in popup variant */}
+          {!hideMessage && variant !== 'popup' && (
+            <div>
+              <label
+                htmlFor="enquiry-message"
+                className="mb-1.5 block text-sm font-semibold text-neutral-800"
+              >
+                Message / Specific Requirements{' '}
+                <span className="font-normal text-neutral-400">(Optional)</span>
+              </label>
+              <textarea
+                id="enquiry-message"
+                name="message"
+                rows={3}
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Tell us about your savings goals or questions..."
+                className="min-h-[88px] w-full rounded-md border border-neutral-300 px-3.5 py-2.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-purple-700 focus:outline-none focus:ring-2 focus:ring-brand-purple-700"
+              />
+            </div>
+          )}
 
           {/* Field 5: Consent Checkbox */}
           <div>
@@ -457,7 +474,15 @@ export function EnquiryForm({ initialPlanName = '', className = '', onSuccess }:
                 className="cursor-pointer select-none text-xs leading-normal text-neutral-600"
               >
                 I authorize Shri Vijaya Ganapathi Chit Fund Pvt Ltd to contact me via phone,
-                WhatsApp, or SMS regarding chit group enrollment details.{' '}
+                WhatsApp, or SMS regarding chit group enrollment details per our{' '}
+                <Link
+                  href="/privacy-policy"
+                  target="_blank"
+                  className="font-medium text-brand-purple-900 underline hover:text-brand-purple-800"
+                >
+                  Privacy Policy
+                </Link>
+                .{' '}
                 <span className="text-red-500">*</span>
               </label>
             </div>
