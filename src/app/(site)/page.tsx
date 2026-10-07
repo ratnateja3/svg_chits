@@ -6,7 +6,6 @@ import { ChitPreviewSection } from '@/components/home/ChitPreviewSection';
 import { TrustCompanySection } from '@/components/home/TrustCompanySection';
 import { CompactHowItWorksSection } from '@/components/home/CompactHowItWorksSection';
 import { EnquiryCtaSection } from '@/components/home/EnquiryCtaSection';
-import { MobileEnquiryPopup } from '@/components/home/MobileEnquiryPopup';
 
 export const metadata: Metadata = buildPageMetadata({
   title: `${siteConfig.name} | Registered Chit Fund Company in Hyderabad`,
@@ -32,9 +31,6 @@ export default function HomePage() {
 
       {/* 5. Final Enquiry CTA */}
       <EnquiryCtaSection />
-
-      {/* Mobile Enquiry Popup (Bottom sheet, phone viewports only) */}
-      <MobileEnquiryPopup />
     </>
   );
 }

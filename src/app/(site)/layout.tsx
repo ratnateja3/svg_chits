@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { StickyContactBar } from '@/components/layout/StickyContactBar';
+import { AutoEnquiryModal } from '@/components/shared/AutoEnquiryModal';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,6 +26,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
 
       {/* Sticky contact bar for mobile viewports */}
       <StickyContactBar />
+
+      {/* Site-wide customer enquiry popup (triggered once per session after ~2.5s) */}
+      <AutoEnquiryModal />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import type { EnquiryFormData, EnquirySubmissionResult } from '../types';
-import { siteConfig } from '@/content/site';
 
 export interface EnquiryValidationErrors {
   name?: string;
@@ -72,15 +71,14 @@ export function validateEnquiryForm(data: EnquiryFormData): {
 }
 
 /**
- * Submits the enquiry form payload to the configured hosted form provider (primary delivery).
- * In parallel, if NEXT_PUBLIC_SHEET_ENDPOINT is configured, sends a non-blocking copy
- * to the Google Apps Script Web App (convenience backup delivery).
+ * Submits the enquiry form payload to our internal API endpoint (/api/enquiry),
+ * which securely validates and forwards it to the Google Sheets webhook.
  *
  * Handles honeypot spam silently. Normalizes phone numbers to clean 10 digits.
  * Never logs sensitive PII to browser console.
  */
 export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmissionResult> {
-  // Honeypot spam trap: if filled by automated bots, reject silently without calling endpoints
+  // Honeypot spam trap: if filled by automated bots, reject silently without calling endpoint
   if (data.honeypot && data.honeypot.trim().length > 0) {
     return {
       success: true,
@@ -98,34 +96,23 @@ export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmi
     };
   }
 
-  const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
-  const phoneText = siteConfig.contact.phoneDisplay || siteConfig.contact.phone || '+91 99637 21319';
-
-  // If no endpoint is configured in environment, do not fake successful submission
-  if (!endpoint || !endpoint.trim()) {
-    return {
-      success: false,
-      message: `Thank you for reaching out. Please call our Shamshabad office directly at ${phoneText} while our online form is being configured.`,
-      error: 'NEXT_PUBLIC_FORM_ENDPOINT is not configured',
-    };
-  }
-
   const submissionId = generateSubmissionId();
   const normalizedPhone = normalizePhoneNumber(data.phone);
   const currentPath =
     data.pagePath || (typeof window !== 'undefined' ? window.location.pathname : '/');
 
-  // Flat, clean snake_case payload for hosted form provider and spreadsheet backup.
-  // Empty values are always sent as empty strings.
+  // Flat payload sent to the Next.js API route
   const payload: Record<string, string> = {
     submission_id: submissionId,
     name: data.name ? data.name.trim() : '',
     phone: normalizedPhone,
     interested_in: data.chitPlanName?.trim() || data.chitPlanId?.trim() || 'General Chit Inquiry',
+    chitPlanName: data.chitPlanName?.trim() || data.chitPlanId?.trim() || 'General Chit Inquiry',
     message: data.message ? data.message.trim() : '',
     consent: 'yes',
     form_location: data.formLocation || 'contact-page',
     page_path: currentPath,
+    source: data.formLocation || 'contact-page',
     utm_source: data.utmSource || '',
     utm_medium: data.utmMedium || '',
     utm_campaign: data.utmCampaign || '',
@@ -135,32 +122,8 @@ export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmi
     fbclid: data.fbclid || '',
   };
 
-  // STEP 7: Optional Google Sheets copy (environment-variable-gated, non-blocking fire-and-forget)
-  const sheetEndpoint = process.env.NEXT_PUBLIC_SHEET_ENDPOINT;
-  if (sheetEndpoint && sheetEndpoint.trim()) {
-    try {
-      fetch(sheetEndpoint.trim(), {
-        method: 'POST',
-        mode: 'no-cors',
-        keepalive: true,
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify(payload),
-      }).catch((err) => {
-        if (process.env.NODE_ENV === 'development') {
-          console.warn('[Sheet Copy Warning]', err);
-        }
-      });
-    } catch (err) {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('[Sheet Copy Error]', err);
-      }
-    }
-  }
-
   try {
-    const response = await fetch(endpoint.trim(), {
+    const response = await fetch('/api/enquiry', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -169,24 +132,37 @@ export async function submitEnquiry(data: EnquiryFormData): Promise<EnquirySubmi
       body: JSON.stringify(payload),
     });
 
-    if (!response.ok) {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn(`[Enquiry Submission Failed] Submission ID: ${submissionId}, HTTP status: ${response.status}`);
-      }
-      throw new Error(`Submission failed with status ${response.status}`);
+    const result = (await response.json().catch(() => null)) as {
+      success?: boolean;
+      message?: string;
+      error?: string;
+    } | null;
+
+    if (!response.ok || !result?.success) {
+      const errorMessage =
+        result?.error ||
+        'We could not submit your enquiry online right now. Please call or WhatsApp our office.';
+      return {
+        success: false,
+        message: errorMessage,
+        error: errorMessage,
+      };
     }
 
     return {
       success: true,
-      message: 'Thank you! Your enquiry has been received. Our team will reach out shortly.',
+      message:
+        result.message ||
+        'Thank you! Your enquiry has been received. Our team will reach out shortly.',
     };
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
-      console.warn(`[Enquiry Submission Error] Submission ID: ${submissionId}`);
+      console.warn(`[Enquiry Submission Network Error] Submission ID: ${submissionId}`, error);
     }
     return {
       success: false,
-      message: 'We could not submit your enquiry online. Please call or WhatsApp our office.',
+      message:
+        'A connection issue occurred while submitting. Please call or WhatsApp our office directly.',
       error: error instanceof Error ? error.message : 'Unknown network error',
     };
   }
