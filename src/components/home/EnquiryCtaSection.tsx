@@ -42,9 +42,15 @@ export function EnquiryCtaSection() {
               Enquire Now
             </Button>
 
-            <Button href="/chit-groups" variant="outline" size="lg" className="min-w-[160px]">
-              Browse All Schemes
-            </Button>
+            {telLink && (
+              <a
+                href={telLink}
+                onClick={() => trackCallClick(siteConfig.contact.phone!, 'enquiry_cta_section')}
+                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border border-neutral-300 bg-white px-5 py-3 text-base font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
+              >
+                <span>Call Our Office</span>
+              </a>
+            )}
 
             {whatsappLink && (
               <a
@@ -57,25 +63,21 @@ export function EnquiryCtaSection() {
                 <span>Chat on WhatsApp</span>
               </a>
             )}
-
-            {telLink && (
-              <a
-                href={telLink}
-                onClick={() => trackCallClick(siteConfig.contact.phone!, 'enquiry_cta_section')}
-                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border border-neutral-300 bg-white px-5 py-3 text-base font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
-              >
-                <span>Call Our Office</span>
-              </a>
-            )}
           </div>
 
-          {/* Office Address Footnote */}
-          <div className="mt-8 border-t border-brand-purple-200/60 pt-6 text-xs text-neutral-500">
+          {/* Quick FAQ Link */}
+          <div className="mt-4">
+            <Link
+              href="/faqs"
+              className="inline-flex min-h-[44px] items-center text-sm font-medium text-brand-purple-900 underline hover:text-brand-purple-800"
+            >
+              Have questions? Read our FAQs &rarr;
+            </Link>
+          </div>
+
+          {/* Confidentiality Reassurance Footnote */}
+          <div className="mt-6 border-t border-brand-purple-200/60 pt-4 text-xs text-neutral-500">
             <p>
-              <strong className="font-semibold text-neutral-700">Registered Office:</strong>{' '}
-              {siteConfig.address.fullAddress}
-            </p>
-            <p className="mt-1">
               Strictly confidential. No sensitive banking credentials or identification documents are
               requested online.
             </p>

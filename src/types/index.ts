@@ -73,6 +73,8 @@ export interface EnquiryFormData {
   message?: string;
   consent: boolean;
   honeypot?: string;
+  formLocation?: string;
+  pagePath?: string;
   // Attribution & campaign tracking
   utmSource?: string;
   utmMedium?: string;

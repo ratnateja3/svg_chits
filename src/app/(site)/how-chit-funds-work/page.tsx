@@ -5,6 +5,7 @@ import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { BenefitsSection } from '@/components/home/BenefitsSection';
 import { siteConfig } from '@/content/site';
 import { buildPageMetadata } from '@/lib/seo';
 
@@ -187,6 +188,9 @@ export default function HowChitFundsWorkPage() {
           </div>
         </Container>
       </Section>
+
+      {/* Common Chit Fund Use Cases */}
+      <BenefitsSection />
 
       {/* 5. Statutory Disclaimer & CTA */}
       <Section spacing="md" background="subtle">

@@ -8,6 +8,7 @@ const useCases = [
   {
     title: 'Disciplined Monthly Planning',
     category: 'Household Savings',
+    // CONTENT-REVIEW: dividend wording ("dividend credits that reduce subsequent instalments")
     description:
       'Cultivate a steady, contractual commitment to monthly saving. Earn dividend credits that reduce subsequent instalments while building a substantial financial cushion.',
   },
@@ -38,6 +39,7 @@ const useCases = [
   {
     title: 'Emergency Liquidity Reserve',
     category: 'Contingency Access',
+    // CONTENT-REVIEW: emergency-liquidity wording ("Emergency Liquidity Reserve", "access needed liquidity")
     description:
       'Enjoy the unique flexibility of an auction-based chit fund: if an unforeseen medical or financial emergency arises, you can bid early to access needed liquidity.',
   },
