@@ -152,7 +152,7 @@ export default function ContactPage() {
                           rel="noopener noreferrer"
                           className="font-medium text-emerald-800 hover:underline"
                         >
-                          Chat on WhatsApp
+                          {siteConfig.contact.whatsappDisplay || siteConfig.contact.whatsapp}
                         </a>
                       ) : (
                         <span className="text-neutral-500 italic">

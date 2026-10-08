@@ -38,6 +38,8 @@ export function getWhatsAppLink(options?: WhatsAppLinkOptions): string | null {
     return null;
   }
 
+  const formattedDigits = digitsOnly.length === 10 ? `91${digitsOnly}` : digitsOnly;
+
   // Build prefilled message
   let defaultMessage = `Hello, I would like to know more about the chit groups offered by ${siteConfig.name}.`;
   if (options?.planName) {
@@ -47,7 +49,7 @@ export function getWhatsAppLink(options?: WhatsAppLinkOptions): string | null {
   const messageText = options?.message || defaultMessage;
   const encodedMessage = encodeURIComponent(messageText);
 
-  return `https://wa.me/${digitsOnly}?text=${encodedMessage}`;
+  return `https://wa.me/${formattedDigits}?text=${encodedMessage}`;
 }
 
 /**

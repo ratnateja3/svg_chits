@@ -3,8 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { siteConfig } from '@/content/site';
-import { getTelLink } from '@/lib/contact';
-import { trackCallClick, trackEnquireClick } from '@/lib/analytics';
+import { getTelLink, getWhatsAppLink } from '@/lib/contact';
+import { trackCallClick, trackWhatsAppClick, trackEnquireClick } from '@/lib/analytics';
 
 /**
  * Sticky bottom contact bar for mobile viewports.
@@ -14,10 +14,11 @@ import { trackCallClick, trackEnquireClick } from '@/lib/analytics';
 export function StickyContactBar() {
   const { phone, whatsapp } = siteConfig.contact;
   const telLink = getTelLink();
+  const whatsappLink = getWhatsAppLink();
 
   // Check which actions are available
   const hasPhone = Boolean(telLink && phone && phone.trim());
-  const hasWhatsapp = Boolean(whatsapp && whatsapp.trim());
+  const hasWhatsapp = Boolean(whatsappLink && whatsapp && whatsapp.trim());
 
   // Enquire is always available via the contact route
   return (
@@ -51,9 +52,10 @@ export function StickyContactBar() {
           </a>
         )}
 
-        {hasWhatsapp && (
+        {hasWhatsapp && whatsappLink && (
           <a
-            href={`https://wa.me/${whatsapp?.replace(/[^0-9]/g, '')}`}
+            href={whatsappLink}
+            onClick={() => trackWhatsAppClick(whatsapp!, 'sticky_bar')}
             target="_blank"
             rel="noopener noreferrer"
             className="flex min-h-[44px] items-center justify-center gap-1.5 rounded-md border border-emerald-300 bg-emerald-100 px-3 py-2.5 text-sm font-semibold text-emerald-950 hover:bg-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 active:bg-emerald-300"

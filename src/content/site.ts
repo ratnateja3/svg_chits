@@ -33,10 +33,10 @@ export const siteConfig: SiteConfig = {
   contact: {
     phone: '9392824461', // Confirmed official business phone
     phoneDisplay: '+91 93928 24461',
-    whatsapp: null, // Placeholder: Official WhatsApp number pending confirmation
-    whatsappDisplay: null,
-    email: null, // Placeholder: Official email address pending confirmation
-    workingHours: null, // Placeholder: Business hours pending confirmation
+    whatsapp: '9392824461', // Confirmed official WhatsApp (same as phone)
+    whatsappDisplay: '+91 93928 24461',
+    email: 'svgchits2022@gmail.com', // Confirmed official email
+    workingHours: 'Monday – Saturday: 10:00 AM – 6:00 PM',
   },
 
   legal: {

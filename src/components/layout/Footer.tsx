@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
 import { siteConfig } from '@/content/site';
 import { footerQuickLinks, legalLinks } from '@/content/navigation';
-import { getTelLink, getEmailLink } from '@/lib/contact';
+import { getTelLink, getEmailLink, getWhatsAppLink } from '@/lib/contact';
 import { openPayInstallmentsModal } from '@/components/shared/PayInstallmentsModal';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const telLink = getTelLink();
   const emailLink = getEmailLink();
+  const whatsappLink = getWhatsAppLink();
 
   return (
     <footer className="border-t border-brand-purple-900 bg-brand-purple-950 text-neutral-300">
@@ -120,6 +121,19 @@ export function Footer() {
                   className="text-brand-gold-300 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-gold-400"
                 >
                   {siteConfig.contact.email}
+                </a>
+              </p>
+            )}
+            {whatsappLink && siteConfig.contact.whatsapp && (
+              <p className="text-xs text-neutral-400">
+                WhatsApp:{' '}
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-gold-300 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-gold-400"
+                >
+                  {siteConfig.contact.whatsappDisplay || siteConfig.contact.whatsapp}
                 </a>
               </p>
             )}
