@@ -8,6 +8,7 @@ export interface CompanyAddress {
   pincode: string;
   country: string;
   fullAddress: string;
+  mapsUrl?: string;
 }
 
 export interface CompanyContact {

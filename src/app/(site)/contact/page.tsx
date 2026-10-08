@@ -19,9 +19,8 @@ export default function ContactPage() {
   const whatsappLink = getWhatsAppLink();
   const emailLink = getEmailLink();
 
-  // Clean Google Maps search link (opens in external map app/browser, without embedding iframes)
-  const encodedAddress = encodeURIComponent(siteConfig.address.fullAddress);
-  const mapsSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+  // Official Google Maps direct link and location embed
+  const mapsSearchUrl = siteConfig.address.mapsUrl || 'https://maps.app.goo.gl/eUpdsirDg5Zg5rzu9';
 
   return (
     <>
@@ -98,6 +97,21 @@ export default function ContactPage() {
                     </svg>
                     <span>View Location on Google Maps &rarr;</span>
                   </a>
+                </div>
+
+                {/* Google Maps Embed */}
+                <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 shadow-2xs aspect-[4/3] w-full">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3810.090445348145!2d78.38483857516208!3d17.262858683603266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTfCsDE1JzQ2LjMiTiA3OMKwMjMnMTQuNyJF!5e0!3m2!1sen!2sin!4v1791478811308!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    title="Shri Vijaya Ganapathi Chit Fund Registered Office Location Map"
+                    className="w-full h-full"
+                  />
                 </div>
               </Card>
 

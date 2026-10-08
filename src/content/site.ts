@@ -27,6 +27,7 @@ export const siteConfig: SiteConfig = {
     pincode: '501218',
     country: 'India',
     fullAddress: '20-120/3, RB Nagar, Shamshabad, RR District, Hyderabad, India, 501218',
+    mapsUrl: 'https://maps.app.goo.gl/eUpdsirDg5Zg5rzu9',
   },
 
   contact: {
