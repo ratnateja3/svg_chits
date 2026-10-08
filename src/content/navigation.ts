@@ -12,7 +12,7 @@ export const navigationLinks: NavItem[] = [
   { label: 'Careers', href: '/careers' },
   { label: 'FAQs', href: '/faqs' },
   { label: 'Contact', href: '/contact' },
-  { label: 'Pay Now', href: '/pay-now', variant: 'quiet' },
+  { label: 'Pay Installments', href: '#pay-installments', variant: 'quiet' },
   { label: 'Enquire Now', href: '/contact', variant: 'prominent' },
 ];
 
@@ -28,7 +28,7 @@ export const footerQuickLinks: NavItem[] = [
   { label: 'Careers', href: '/careers' },
   { label: 'Frequently Asked Questions', href: '/faqs' },
   { label: 'Contact Us', href: '/contact' },
-  { label: 'Pay Online', href: '/pay-now' },
+  { label: 'Pay Installments', href: '#pay-installments' },
 ];
 
 /**

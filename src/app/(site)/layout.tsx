@@ -3,6 +3,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { StickyContactBar } from '@/components/layout/StickyContactBar';
 import { AutoEnquiryModal } from '@/components/shared/AutoEnquiryModal';
+import { PayInstallmentsModal } from '@/components/shared/PayInstallmentsModal';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -29,6 +30,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
 
       {/* Site-wide customer enquiry popup (triggered once per session after ~2.5s) */}
       <AutoEnquiryModal />
+
+      {/* Online payment modal (triggered without page redirect) */}
+      <PayInstallmentsModal />
     </div>
   );
 }

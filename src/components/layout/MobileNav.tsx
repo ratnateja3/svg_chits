@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { navigationLinks } from '@/content/navigation';
 import { siteConfig } from '@/content/site';
 import { getTelLink } from '@/lib/contact';
+import { openPayInstallmentsModal } from '@/components/shared/PayInstallmentsModal';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -143,13 +144,16 @@ export function MobileNav() {
             if (isQuiet) {
               return (
                 <div key={item.label} className="pt-2">
-                  <Link
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      setIsOpen(false);
+                      openPayInstallmentsModal(e);
+                    }}
                     className="flex min-h-[44px] w-full items-center justify-center rounded-md border border-neutral-300 bg-neutral-100 px-4 py-2.5 text-sm font-medium text-neutral-600 hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple-700"
                   >
                     {item.label}
-                  </Link>
+                  </button>
                 </div>
               );
             }

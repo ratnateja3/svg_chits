@@ -7,6 +7,7 @@ import { Container } from '@/components/ui/Container';
 import { Logo } from '@/components/shared/Logo';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { navigationLinks } from '@/content/navigation';
+import { openPayInstallmentsModal } from '@/components/shared/PayInstallmentsModal';
 import { cn } from '@/lib/utils';
 
 export function Header() {
@@ -52,12 +53,13 @@ export function Header() {
           {/* Desktop Actions */}
           <div className="hidden items-center space-x-3 lg:flex">
             {quietAction && (
-              <Link
-                href={quietAction.href}
+              <button
+                type="button"
+                onClick={openPayInstallmentsModal}
                 className="rounded-md border border-brand-purple-800 bg-brand-purple-900/60 px-3 py-2 text-xs font-medium text-neutral-300 transition-colors hover:border-brand-purple-700 hover:bg-brand-purple-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-400"
               >
                 {quietAction.label}
-              </Link>
+              </button>
             )}
 
             {prominentAction && (

@@ -1,9 +1,12 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
 import { siteConfig } from '@/content/site';
 import { footerQuickLinks, legalLinks } from '@/content/navigation';
 import { getTelLink, getEmailLink } from '@/lib/contact';
+import { openPayInstallmentsModal } from '@/components/shared/PayInstallmentsModal';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,7 +23,7 @@ export function Footer() {
               {siteConfig.name}
             </span>
             <p className="text-sm leading-relaxed text-neutral-400">
-              A trusted, government-registered chit fund company offering disciplined financial
+              A trusted, registered chit fund company offering disciplined financial
               savings and accessible credit solutions.
             </p>
             {siteConfig.legal.registeredState && (
@@ -57,12 +60,22 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               {footerQuickLinks.slice(4).map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="inline-block rounded py-1 text-neutral-400 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-400"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.label === 'Pay Installments' ? (
+                    <button
+                      type="button"
+                      onClick={openPayInstallmentsModal}
+                      className="inline-block rounded py-1 text-neutral-400 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-400"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="inline-block rounded py-1 text-neutral-400 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-400"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
               {legalLinks.map((link) => (
