@@ -43,13 +43,6 @@ export function Logo({ className = '', variant = 'dark' }: LogoProps) {
         >
           {siteConfig.name}
         </span>
-        <span
-          className={`text-[10px] font-medium uppercase tracking-wider min-[430px]:text-[11px] ${
-            isLight ? 'text-brand-gold-300' : 'text-neutral-500'
-          }`}
-        >
-          Govt. Registered Chit Fund
-        </span>
       </div>
     </Link>
   );
