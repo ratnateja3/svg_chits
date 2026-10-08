@@ -27,11 +27,6 @@ export function Footer() {
               A trusted, registered chit fund company offering disciplined financial
               savings and accessible credit solutions.
             </p>
-            {siteConfig.legal.registeredState && (
-              <p className="text-xs font-medium text-brand-gold-400">
-                Registered in the State of {siteConfig.legal.registeredState}
-              </p>
-            )}
           </div>
 
           {/* Column 2: Quick Links */}
